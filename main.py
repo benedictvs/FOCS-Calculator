@@ -2,6 +2,7 @@ from questionary import Separator, prompt, print
 from pprint import pprint
 import os
 from euclidsolverfc import *
+from romansolverfc import *
 
 #————————————————————————————————————————————————
 #GLOBAL VARIABLES
