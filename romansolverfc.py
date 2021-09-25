@@ -59,17 +59,21 @@ def romanwork(expression: str) -> 'Returns string containing work':
         return nums[expression]
     sums = []
     formula = ''
+    simpleformula = ''
     for i in range(0, len(romalist)-1):
         if nums[romalist[i]] < nums[romalist[i+1]]:
             sums.append(nums[romalist[i]]*-1)
             formula += ' ' + romalist[i] + '(' + str(nums[romalist[i]]*-1) + ') +'
+            simpleformula += ' ' + str(nums[romalist[i]]*-1) + ' +'
         else:
             sums.append(nums[romalist[i]])
             formula += ' ' + romalist[i] + '(' + str(nums[romalist[i]]) + ') +'
+            simpleformula += ' ' + str(nums[romalist[i]]) + ' +'
     formula += ' ' + romalist[-1] + '(' + str(nums[romalist[-1]]) + ')'
+    simpleformula += ' ' + str(nums[romalist[-1]])
     sums.append(nums[romalist[-1]])
     val = sum(sums)
-    return recallstr + '\n' + formula + '\n' + '= {}'.format(val)
+    return recallstr + '\n' + formula + '\n' + simpleformula + '\n' + '= {}'.format(val)
 
 
 #————————————————————————————————————————————————
