@@ -7,9 +7,27 @@ Here is a good example of how simple it can be to add modules. This is all
 based off of the Euclid solver code. This contains every single line of code
 that pertains to the Roman numeral solver. The only line I had to add to the
 main file, was "from romansolverfc import *". Unfortunately, the solving
-functions are a little sloppy, and could use some further revision. 
+functions are a little sloppy, and could use some further revision.
 '''
 
+#————————————————————————————————————————————————
+#HELPER FUNCTIONS
+#————————————————————————————————————————————————
+
+def all_chars_in_set(mystr: str, myset: set) -> 'True or False':
+    for i in range(0, len(mystr)):
+        if not mystr[i] in myset:
+            return False
+    return True
+
+
+#————————————————————————————————————————————————
+#GLOBAL VARIABLES
+#————————————————————————————————————————————————
+
+
+global nums
+nums = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100,'D':500, 'M':1000}
 
 
 #————————————————————————————————————————————————
@@ -23,7 +41,7 @@ def prompt_roman_to_dec(**kwargs):
             "type": "text",
             "name": "user_input",
             "message": "Please enter the Roman numeral expression > ",
-            "validate": lambda val: val.isalpha() ,
+            "validate": lambda val: val.isalpha() and all_chars_in_set(val, nums) ,
         },
     ]
     return prompt(questions)
@@ -33,7 +51,6 @@ def prompt_roman_to_dec(**kwargs):
 #SOLVER FUNCTIONS
 #————————————————————————————————————————————————
 
-nums = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100,'D':500, 'M':1000}
 def roman(expression: str) -> 'Returns integer':
     romalist = list(expression)
     if len(romalist) == 1:
