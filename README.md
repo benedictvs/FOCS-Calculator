@@ -1,4 +1,4 @@
-# BrokerBot
+# FOCS Calculator
 FOCS Calculator is a command line application designed for solving niche mathematical problems, specifically those encountered in discrete mathematics. This powerful tool allows you to see the works and steps behind your answer, giving you insight and unserstanding you may not have gotten from the class.
 ## Installation Guide
 Installing FOCS Calculator is quite simple. There are very few requirements.
