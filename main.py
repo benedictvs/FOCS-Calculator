@@ -1,8 +1,10 @@
 from questionary import Separator, prompt, print
 from pprint import pprint
+import math as m
 import os
-from euclidsolverfc import *
-from romansolverfc import *
+import sys
+from euclidsolverfc import euclidsolver
+from romansolverfc import romansolver
 
 #————————————————————————————————————————————————
 #GLOBAL VARIABLES
@@ -57,7 +59,7 @@ def menu():
     solver_pick = pick_solver_question()['solver_choice']
     if solver_pick == 'Exit':
         print('FOCSCalc exitting...', style="bold italic fg:yellow")
-        exit()
+        sys.exit(0)
     eval(solver_pick.lower()+'solver()')
     return menu()
 
