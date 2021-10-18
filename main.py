@@ -5,12 +5,13 @@ import os
 import sys
 from euclidsolverfc import euclidsolver
 from romansolverfc import romansolver
+from distance_solver import distancesolver
 
 #————————————————————————————————————————————————
 #GLOBAL VARIABLES
 #————————————————————————————————————————————————
 
-solver_options = ['Euclid', 'Roman', 'Exit']
+solver_options = ['Euclid', 'Roman', 'Distance', 'Exit']
 
 
 
