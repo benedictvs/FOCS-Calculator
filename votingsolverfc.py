@@ -160,7 +160,6 @@ def votingsolver():
     str_vote_permutations.insert(0, "Done")
 
     permutation_index = str_vote_permutations.index(prompt_input_permutation(str_vote_permutations)['permutation'])
-    print(str(permutation_index))
 
     votes = []
     while permutation_index != 0:
@@ -170,7 +169,6 @@ def votingsolver():
         str_vote_permutations.pop(permutation_index)
         vote_permutations.pop(permutation_index-1)
         permutation_index = str_vote_permutations.index(prompt_input_permutation(str_vote_permutations)['permutation'])
-        print(str(permutation_index))
     
     solution = votingsolvermodule(candidates, votes)
     print('\nYour answers:\n{}'.format(solution.ans), style="bold italic fg:yellow")
