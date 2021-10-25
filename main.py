@@ -7,11 +7,12 @@ from euclidsolverfc import euclidsolver
 from romansolverfc import romansolver
 from distance_solver import distancesolver
 from binomialsolverfc import binomialsolver
+from votingsolverfc import votingsolver
 #————————————————————————————————————————————————
 #GLOBAL VARIABLES
 #————————————————————————————————————————————————
 
-solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial',  'Exit']
+solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Exit']
 
 
 
