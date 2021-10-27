@@ -108,6 +108,13 @@ class voting:
         ret += "\nBorda: \n"
         ret += self.str_ans(count_borda, winners_borda)
         work += work_borda
+        # ————————————————————————————————————————————————
+        # VETO
+        # ————————————————————————————————————————————————
+        count_veto, winners_veto, work_veto = self.veto()
+        ret += "\nVeto: \n"
+        ret += self.str_ans(count_veto, winners_veto)
+        work += work_veto
         return ret, work
 
     def plurality(self):
@@ -126,7 +133,8 @@ class voting:
 
         for v in self.votes:
             work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
-            work += "\n" + str(v[0]) + " = " + str(count[v[0]]) + " + " + str(self.votes[v])
+            work += "\n" + str(v[0]) + " = " + \
+                str(count[v[0]]) + " + " + str(self.votes[v])
             count[v[0]] += self.votes[v]
             work += " = " + str(count[v[0]])
 
@@ -161,7 +169,7 @@ class voting:
                 score = (n-i) * self.votes[v]
                 work += "\n" + str(v[i]) + " = "
                 work += str(count[v[i]]) + \
-                    " + " + str(n-i) + " * " + \
+                    " + (" + str(n) + " - " + str(i) +  ") * " + \
                     str(self.votes[v]) + " = " + str(score+count[v[i]])
                 count[v[i]] += score
 
@@ -171,11 +179,42 @@ class voting:
 
         max_val = max(count.values())
         winners = [key for key, val in count.items() if val == max_val]
-        print(work)
         return count, winners, work
 
     def veto(self):
-        pass
+        work = "\n\nVeto Voting: All candidates, save for the lowest ranking candidate," + \
+            "get 1 point. The lowest ranking candidate is vetoed in each vote."
+        count = self.count.copy()
+
+        work += "\nP = "
+        votes_keys = [*self.votes.keys()]
+        work += str(self.votes[votes_keys[0]]) + \
+            "@[" + " > ".join(votes_keys[0]) + "]"
+        for i in range(1, len(votes_keys)):
+            work += " + " + \
+                str(self.votes[votes_keys[i]]) + \
+                "@[" + " > ".join(votes_keys[i]) + "]"
+
+
+        for v in self.votes:
+            work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
+            for i in range(len(self.candidates)):
+                work += "\n" + str(v[i]) + " = "
+                if i != len(self.candidates)-1:
+                    work += str(count[v[i]]) + " + 1 * " + str(self.votes[v]) + " = "
+                    count[v[i]] += self.votes[v]
+                else:
+                    work += str(count[v[i]]) + " + 0 * " + str(self.votes[v]) + " = "
+                work += str(count[v[i]])
+
+        work += "\n"
+        for c in self.candidates:
+            work += "\n" + str(c) + " = " + str(count[c])
+
+        max_val = max(count.values())
+        winners = [key for key, val in count.items() if val == max_val]
+
+        return count, winners, work
 
 # ————————————————————————————————————————————————
 # OBJECT DEFINITION OF ANSWER
