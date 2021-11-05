@@ -8,23 +8,20 @@ from romansolverfc import romansolver
 from distance_solver import distancesolver
 from binomialsolverfc import binomialsolver
 from votingsolverfc import votingsolver
-#————————————————————————————————————————————————
-#GLOBAL VARIABLES
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# GLOBAL VARIABLES
+# ————————————————————————————————————————————————
 
 solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Exit']
 
 
-
-
-
-
-#————————————————————————————————————————————————
-#VISUAL HELPER FUNCTIONS
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# VISUAL HELPER FUNCTIONS
+# ————————————————————————————————————————————————
 
 def clear() -> 'Clears terminal based on user OS':
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def logo() -> 'Provides the focs calc logo in the top left corner':
     print('''    __________  ___________ _________    __    ______║
@@ -34,9 +31,9 @@ def logo() -> 'Provides the focs calc logo in the top left corner':
 /_/    \____/\____//____/\____/_/  |_/_____/\____/   ║
 ═════════════════════════════════════════════════════╝''', style="bold italic fg:yellow")
 
-#————————————————————————————————————————————————
-#MAINFILE QUESTION DEFINITIONS
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# MAINFILE QUESTION DEFINITIONS
+# ————————————————————————————————————————————————
 
 
 def pick_solver_question(**kwargs):
@@ -51,9 +48,10 @@ def pick_solver_question(**kwargs):
     ]
     return prompt(questions)
 
-#————————————————————————————————————————————————
-#MAINFILE LOGIC
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# MAINFILE LOGIC
+# ————————————————————————————————————————————————
+
 
 def menu():
     clear()
@@ -64,5 +62,6 @@ def menu():
         sys.exit(0)
     eval(solver_pick.lower()+'solver()')
     return menu()
+
 
 menu()

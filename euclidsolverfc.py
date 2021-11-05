@@ -12,10 +12,9 @@ we don't clutter out main FOCSCalc file.
 '''
 
 
-
-#————————————————————————————————————————————————
-#MODULE PROMPTS
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# MODULE PROMPTS
+# ————————————————————————————————————————————————
 
 def prompt_input_x(**kwargs):
     questions = [
@@ -24,10 +23,11 @@ def prompt_input_x(**kwargs):
             "type": "text",
             "name": "x_input",
             "message": "Please enter the first value > ",
-            "validate": lambda val: val.isnumeric() ,
+            "validate": lambda val: val.isnumeric(),
         },
     ]
     return prompt(questions)
+
 
 def prompt_input_y(**kwargs):
     questions = [
@@ -36,38 +36,42 @@ def prompt_input_y(**kwargs):
             "type": "text",
             "name": "y_input",
             "message": "Please enter the second value > ",
-            #In Euclid's algorithm, the second value must always be greater
-            #This double lambda statement assures that it is numeric and greater
-            "validate": lambda val: val.isnumeric() and int(val) > x_arg ,
+            # In Euclid's algorithm, the second value must always be greater
+            # This double lambda statement assures that it is numeric and greater
+            "validate": lambda val: val.isnumeric() and int(val) > x_arg,
         },
     ]
     return prompt(questions)
 
-#————————————————————————————————————————————————
-#SOLVER FUNCTIONS
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# SOLVER FUNCTIONS
+# ————————————————————————————————————————————————
+
 
 def euclid(x: int, y: int) -> 'Recursive function, returns integer answer when done':
     if y == 0:
         return x
     else:
-        return euclid(y, x%y)
+        return euclid(y, x % y)
+
 
 def euclidwork(x: int, y: int, v: str) -> 'Recursive function, returns string of work when done':
     if y == 0:
         v += 'Final GCD is {}'.format(x)
         return v
     else:
-        if x > y and x%y != 0:
-            v += '{} goes into {} {} times, with a remainder of {}. Now perform gcd({}, {})'.format(y, x, x//y, x%y, x%y, y) + '\n'
-        elif x > y and x%y == 0:
-            v += '{} goes into {} {} times, with a remainder of {}. We have arrived at our GCD.'.format(y, x, x//y, x%y) + '\n'
-        return euclidwork(y, x%y, v)
+        if x > y and x % y != 0:
+            v += '{} goes into {} {} times, with a remainder of {}. Now perform gcd({}, {})'.format(
+                y, x, x//y, x % y, x % y, y) + '\n'
+        elif x > y and x % y == 0:
+            v += '{} goes into {} {} times, with a remainder of {}. We have arrived at our GCD.'.format(
+                y, x, x//y, x % y) + '\n'
+        return euclidwork(y, x % y, v)
 
 
-#————————————————————————————————————————————————
-#OBJECT DEFINITION OF ANSWER
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# OBJECT DEFINITION OF ANSWER
+# ————————————————————————————————————————————————
 
 class euclidsolvermodule:
     def __init__(self, x: int, y: int):
@@ -76,17 +80,19 @@ class euclidsolvermodule:
         self.ans = euclid(x, y)
         self.work = euclidwork(x, y, '')
 
-#————————————————————————————————————————————————
-#MAIN FUNCTION
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# MAIN FUNCTION
+# ————————————————————————————————————————————————
+
 
 def euclidsolver():
-    #Define the first euclid argument as global so that we can compare the second input to it
+    # Define the first euclid argument as global so that we can compare the second input to it
     global x_arg
     x_arg = int(prompt_input_x()['x_input'])
     y_arg = int(prompt_input_y()['y_input'])
 
     solution = euclidsolvermodule(x_arg, y_arg)
-    print('\nYour answer: {}'.format(solution.ans), style="bold italic fg:yellow")
+    print('\nYour answer: {}'.format(solution.ans),
+          style="bold italic fg:yellow")
     print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
     input('\nPlease hit enter when you are finished.')

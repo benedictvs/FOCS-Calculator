@@ -8,10 +8,9 @@ This is the work in progress for the vector distance solver.
 '''
 
 
-
-#————————————————————————————————————————————————
-#MODULE PROMPTS
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# MODULE PROMPTS
+# ————————————————————————————————————————————————
 
 def prompt_input_x(**kwargs):
     questions = [
@@ -20,24 +19,25 @@ def prompt_input_x(**kwargs):
             "type": "text",
             "name": "x0_input",
             "message": "Please enter the x value of the first point > ",
-            "validate": lambda val: val.replace('.', '', 1).isdigit() ,
+            "validate": lambda val: val.replace('.', '', 1).isdigit(),
         },
         {
             "qmark": "DISTANCE",
             "type": "text",
             "name": "y0_input",
             "message": "Please enter the y value of the first point > ",
-            "validate": lambda val: val.replace('.', '', 1).isdigit() ,
+            "validate": lambda val: val.replace('.', '', 1).isdigit(),
         },
         {
             "qmark": "DISTANCE",
             "type": "text",
             "name": "z0_input",
             "message": "Please enter the z value of the first point (enter 0 if 2D) > ",
-            "validate": lambda val: val.replace('.', '', 1).isdigit() ,
+            "validate": lambda val: val.replace('.', '', 1).isdigit(),
         },
     ]
     return prompt(questions)
+
 
 def prompt_input_y(**kwargs):
     questions = [
@@ -46,44 +46,48 @@ def prompt_input_y(**kwargs):
             "type": "text",
             "name": "x1_input",
             "message": "Please enter the x value of the second point > ",
-            "validate": lambda val: val.replace('.', '', 1).isdigit() ,
+            "validate": lambda val: val.replace('.', '', 1).isdigit(),
         },
         {
             "qmark": "VECTOR DISTANCE",
             "type": "text",
             "name": "y1_input",
             "message": "Please enter the y value of the second point > ",
-            "validate": lambda val: val.replace('.', '', 1).isdigit() ,
+            "validate": lambda val: val.replace('.', '', 1).isdigit(),
         },
         {
             "qmark": "VECTOR DISTANCE",
             "type": "text",
             "name": "z1_input",
             "message": "Please enter the z value of the second point (enter 0 if 2D) > ",
-            "validate": lambda val: val.replace('.', '', 1).isdigit() ,
+            "validate": lambda val: val.replace('.', '', 1).isdigit(),
         },
     ]
     return prompt(questions)
 
-#————————————————————————————————————————————————
-#SOLVER FUNCTIONS
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# SOLVER FUNCTIONS
+# ————————————————————————————————————————————————
+
 
 def distance(x0: int, y0: int, z0: int, x1: int, y1: int, z1: int) -> 'Function will return the answer when done':
     squared = (x0 - x1)**2 + (y0 - y1)**2 + (z0 - z1)**2
     return m.sqrt(squared)
+
 
 def distancework(x0: int, y0: int, z0: int, x1: int, y1: int, z1: int, v: str) -> 'Function will return a string showing work when done':
     v += 'x squared is {}.'.format((x1-x0)**2) + '\n'
     v += 'y squared is {}.'.format((y1-y0)**2) + '\n'
     v += 'z squared is {}.'.format((z1-z0)**2) + '\n'
     squared = (x0 - x1)**2 + (y0 - y1)**2 + (z0 - z1)**2
-    v += 'add x squared, y squared, and z squared together to get the answer: {}'.format(m.sqrt(squared)) + '\n'
+    v += 'add x squared, y squared, and z squared together to get the answer: {}'.format(
+        m.sqrt(squared)) + '\n'
     return v
 
-#————————————————————————————————————————————————
-#OBJECT DEFINITION OF ANSWER
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# OBJECT DEFINITION OF ANSWER
+# ————————————————————————————————————————————————
+
 
 class distancesolvermodule:
     def __init__(self, x0: int, y0: int, z0: int, x1: int, y1: int, z1: int):
@@ -96,9 +100,10 @@ class distancesolvermodule:
         self.ans = distance(x0, y0, z0, x1, y1, z1)
         self.work = distancework(x0, y0, z0, x1, y1, z1, '')
 
-#————————————————————————————————————————————————
-#MAIN FUNCTION
-#————————————————————————————————————————————————
+# ————————————————————————————————————————————————
+# MAIN FUNCTION
+# ————————————————————————————————————————————————
+
 
 def distancesolver():
     arg0s = prompt_input_x()
@@ -110,7 +115,9 @@ def distancesolver():
     y1_arg = float(arg1s['y1_input'])
     z1_arg = float(arg1s['z1_input'])
 
-    solution = distancesolvermodule(x0_arg, y0_arg, z0_arg, x1_arg, y1_arg, z1_arg)
-    print('\nYour answer: {}'.format(solution.ans), style="bold italic fg:yellow")
+    solution = distancesolvermodule(
+        x0_arg, y0_arg, z0_arg, x1_arg, y1_arg, z1_arg)
+    print('\nYour answer: {}'.format(solution.ans),
+          style="bold italic fg:yellow")
     print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
     input('\nPlease hit enter when you are finished.')

@@ -126,7 +126,8 @@ class voting:
 
         for v in self.votes:
             work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
-            work += "\n" + str(v[0]) + " = " + str(count[v[0]]) + " + " + str(self.votes[v])
+            work += "\n" + str(v[0]) + " = " + \
+                str(count[v[0]]) + " + " + str(self.votes[v])
             count[v[0]] += self.votes[v]
             work += " = " + str(count[v[0]])
 
