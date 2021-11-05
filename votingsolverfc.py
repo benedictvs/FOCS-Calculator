@@ -115,6 +115,13 @@ class voting:
         ret += "\nVeto: \n"
         ret += self.str_ans(count_veto, winners_veto)
         work += work_veto
+        # ————————————————————————————————————————————————
+        # PLURALITY WITH RUNOFF
+        # ————————————————————————————————————————————————
+        count_plurality_runoff, winners_plurality_runoff, work_plurality_runoff = self.veto()
+        ret += "\Plurality with Runoff: \n"
+        ret += self.str_ans(count_plurality_runoff, winners_plurality_runoff)
+        work += work_plurality_runoff
         return ret, work
 
     def plurality(self):
@@ -215,6 +222,9 @@ class voting:
         winners = [key for key, val in count.items() if val == max_val]
 
         return count, winners, work
+
+    def plurality_with_runoff(self):
+        pass
 
 # ————————————————————————————————————————————————
 # OBJECT DEFINITION OF ANSWER
