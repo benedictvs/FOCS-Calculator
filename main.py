@@ -8,11 +8,12 @@ from romansolverfc import romansolver
 from distance_solver import distancesolver
 from binomialsolverfc import binomialsolver
 from votingsolverfc import votingsolver
+from nashequillibriumsolverfc import nashsolver
 # ————————————————————————————————————————————————
 # GLOBAL VARIABLES
 # ————————————————————————————————————————————————
 
-solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Exit']
+solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Nash', 'Exit']
 
 
 # ————————————————————————————————————————————————
