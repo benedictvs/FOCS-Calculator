@@ -74,19 +74,16 @@ def nash(payoff_matrix, player_1_strategies, player_2_strategies):
         is_break = False
         for i in range(len(payoff_matrix)):
             for j in range(len(payoff_matrix)):
-                if i != j:
+                if i != j and i < len(payoff_matrix[0]) and j < len(payoff_matrix[0]):
                     is_greater = False
                     for k in range(len(payoff_matrix[0])):
-                        if payoff_matrix[i][k][0] > payoff_matrix[j][k][0]:
+                        if float(payoff_matrix[i][k][0]) > float(payoff_matrix[j][k][0]):
                             is_greater = True
                         if is_greater:
                             break
                     if not is_greater:
                         print("Player 2's Strategy " + str(player_2_strategies[j]) + " dominates strategy " + str(player_2_strategies[i]))
-                        print_payoff_matrix(payoff_matrix, player_1_strategies,player_2_strategies)
                         payoff_matrix.pop(i)
-                        print_payoff_matrix(payoff_matrix, player_1_strategies,player_2_strategies)
-
                         player_2_strategies.pop(i)
                         is_break = True 
                         break
@@ -99,12 +96,16 @@ def nash(payoff_matrix, player_1_strategies, player_2_strategies):
         is_break = False
         for i in range(len(payoff_matrix[0])):
             for j in range(len(payoff_matrix[0])):
-                if i != j:
+                if i != j and i < len(payoff_matrix[0]) and j < len(payoff_matrix[0]):
                     is_greater = False
                     for k in range(len(payoff_matrix)):
-                        if payoff_matrix[k][i][1] > payoff_matrix[k][j][1]:
-                            # print(payoff_matrix[k][i][1])
-                            # print(payoff_matrix[k][i][1])
+                        print(str(len(payoff_matrix[0])))
+                        print_payoff_matrix(payoff_matrix, player_1_strategies,player_2_strategies)
+                        print(str(k))
+                        print(str(i))
+                        print(str(j))
+                        print("")
+                        if float(payoff_matrix[k][i][1]) > float(payoff_matrix[k][j][1]):
                             is_greater = True
                         if is_greater:
                             break
