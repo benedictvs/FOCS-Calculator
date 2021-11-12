@@ -20,3 +20,4 @@ To create a new module, do the following:
 4. Instantiate your solver class at the bottom of main.py, passing in the following arguments
     1. The name of your module
     2. Your module class
+5. Add your new instantiated module object into the arguments of main()
