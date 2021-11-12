@@ -68,6 +68,7 @@ def isFloat(a):
 # ————————————————————————————————————————————————
 
 def nash(payoff_matrix, player_1_strategies, player_2_strategies):
+    work = ""
 
     no_dominant_exists = False
     while not no_dominant_exists and not (len(player_1_strategies) == 1 and len(player_2_strategies) == 1):
@@ -82,14 +83,17 @@ def nash(payoff_matrix, player_1_strategies, player_2_strategies):
                         if is_greater:
                             break
                     if not is_greater:
-                        print("Player 2's Strategy " + str(player_2_strategies[j]) + " dominates strategy " + str(player_2_strategies[i]))
+                        work += "Player 2's Strategy " + str(
+                            player_2_strategies[j]) + " dominates strategy " + str(player_2_strategies[i]) + '\n'
                         payoff_matrix.pop(i)
                         player_2_strategies.pop(i)
-                        is_break = True 
+                        is_break = True
+                        work += format_payoff_matrix(
+                            payoff_matrix, player_1_strategies, player_2_strategies)
                         break
                 if is_break:
                     break
-        
+
         if is_break:
             no_dominant_exists = False
 
@@ -104,25 +108,30 @@ def nash(payoff_matrix, player_1_strategies, player_2_strategies):
                         if is_greater:
                             break
                     if not is_greater:
-                        print("Player 1's Strategy " + str(player_1_strategies[j]) + " dominates strategy " + str(player_1_strategies[i]))
+                        work += "Player 1's Strategy " + str(
+                            player_1_strategies[j]) + " dominates strategy " + str(player_1_strategies[i]) + '\n'
                         for l in range(len(payoff_matrix)):
                             payoff_matrix[l].pop(i)
                         player_1_strategies.pop(i)
-                        is_break = True 
+                        work += format_payoff_matrix(
+                            payoff_matrix, player_1_strategies, player_2_strategies) 
+                        is_break = True
                         break
                 if is_break:
                     break
-        
+
         if is_break:
             no_dominant_exists = False
-        print_payoff_matrix(payoff_matrix, player_1_strategies,player_2_strategies)
-    
+
     if not (len(player_1_strategies) == 1 and len(player_2_strategies) == 1):
-        print("There is no Nash Equillibrium, since neither player has any further dominant strategies.")
+        ans = "There is no Nash Equillibrium, since at least one player has multiple viable strategies.\n"
+        work += ans
     else:
-        print("This is the Nash Equillibrium of the entered payoff matrix, calculated by eliminating dominanted strategies")
-        print_payoff_matrix(payoff_matrix, player_1_strategies,player_2_strategies)
-    return ""
+        ans = "This is the Nash Equillibrium of the entered payoff matrix, calculated by eliminating dominanted strategies.\n"
+        ans += format_payoff_matrix(
+            payoff_matrix, player_1_strategies, player_2_strategies)
+        work += ans
+    return ans, work
 
 # ————————————————————————————————————————————————
 # OBJECT DEFINITION OF ANSWER
@@ -130,10 +139,11 @@ def nash(payoff_matrix, player_1_strategies, player_2_strategies):
 
 
 class nashsolvermodule:
-    def __init__(self, payoff_matrix: list, player_1_strategies : int, player_2_strategies : int):
+    def __init__(self, payoff_matrix: list, player_1_strategies: int, player_2_strategies: int):
         self.player_1_strategies = player_1_strategies
         self.player_2_strategies = player_2_strategies
-        self.ans = nash(payoff_matrix, player_1_strategies, player_2_strategies)
+        self.ans, self.work = nash(payoff_matrix, player_1_strategies,
+                        player_2_strategies)
 
 # ————————————————————————————————————————————————
 # MAIN FUNCTION
@@ -141,35 +151,43 @@ class nashsolvermodule:
 
 
 def print_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies):
-    print("\t    Player 1")
-    print("\t          " + player_1_strategies[0] + "            ", end="")
+    print(format_payoff_matrix(payoff_matrix,
+          player_1_strategies, player_2_strategies))
+
+def print_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies):
+    print(format_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies))
+
+def format_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies):
+    ret = "\t    Player 1\n"
+    ret += "\t          " + player_1_strategies[0] + "            "
     for j in range(1, len(payoff_matrix[0])):
-        print(player_1_strategies[j] + "            ", end="")
-    print("")
-    print("\t    +------------+", end="")
+        ret += player_1_strategies[j] + "            "
+    ret += '\n'
+    ret += "\t    +------------+"
     for j in range(1, len(payoff_matrix[0])):
-        print("------------+", end="")
-    print("")
-    print("Player 2  " + str(player_2_strategies[0]) + " |", end="")
+        ret += "------------+"
+    ret += '\n'
+    ret += "Player 2  " + str(player_2_strategies[0]) + " |"
     for j in range(len(payoff_matrix[0])):
-        print("{:>5g}, {:<5g}".format(
-            payoff_matrix[0][j][0], payoff_matrix[0][j][1]), end="|")
-    print("")
+        ret += "{:>5g}, {:<5g}".format(
+            payoff_matrix[0][j][0], payoff_matrix[0][j][1]) + '|'
+    ret += '\n'
     for i in range(1, len(payoff_matrix)):
-        print("\t    +------------+", end="")
+        ret += "\t    +------------+"
         for j in range(1, len(payoff_matrix[0])):
-            print("------------+", end="")
-        print("")
-        print("\t  " + player_2_strategies[i] + " |" + "{:>5g}, {:<5g}".format(
-            payoff_matrix[i][0][0], payoff_matrix[i][0][1]), end="|")
+            ret += "------------+"
+        ret += '\n'
+        ret += "\t  " + player_2_strategies[i] + " |" + "{:>5g}, {:<5g}".format(
+            payoff_matrix[i][0][0], payoff_matrix[i][0][1]) + '|'
         for j in range(1, len(payoff_matrix[i])):
-            print("{:>5g}, {:<5g}".format(
-                payoff_matrix[i][j][0], payoff_matrix[i][j][1]), end="|")
-        print("")
-    print("\t    +------------+", end="")
+            ret += "{:>5g}, {:<5g}".format(
+                payoff_matrix[i][j][0], payoff_matrix[i][j][1]) + '|'
+        ret += '\n'
+    ret += "\t    +------------+"
     for j in range(1, len(payoff_matrix[0])):
-        print("------------+", end="")
-    print("")
+        ret += "------------+"
+    ret += '\n'
+    return ret
 
 
 def nashsolver():
@@ -185,8 +203,8 @@ def nashsolver():
 
     payoff_matrix = [[(0, 0) for i in range(num_strategies_1)]
                      for j in range(num_strategies_2)]
-    print(str(payoff_matrix))
-    print_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies)
+    print_payoff_matrix(payoff_matrix, player_1_strategies,
+                        player_2_strategies)
     for i in range(num_strategies_2):
         for j in range(num_strategies_1):
             player_1_payoff = float(prompt_input_payoff(1, player_1_strategies[j], player_2_strategies[i])[
@@ -194,11 +212,12 @@ def nashsolver():
             player_2_payoff = float(prompt_input_payoff(2, player_1_strategies[j], player_2_strategies[i])[
                                     'payoff2' + str(player_1_strategies[j]) + str(player_2_strategies[i])])
             payoff_matrix[i][j] = (player_2_payoff, player_1_payoff)
-            print_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies)
-                        
+            print_payoff_matrix(
+                payoff_matrix, player_1_strategies, player_2_strategies)
 
-    solution = nashsolvermodule(payoff_matrix, player_1_strategies, player_2_strategies)
+    solution = nashsolvermodule(
+        payoff_matrix, player_1_strategies, player_2_strategies)
     print('\nYour answers:\n{}'.format(solution.ans),
           style="bold italic fg:yellow")
-    # print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
+    print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
     input('\nPlease hit enter when you are finished.')
