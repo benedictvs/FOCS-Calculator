@@ -1,14 +1,11 @@
-from questionary import Separator, prompt, print
-import sys
-import os
-import math as m
-from pprint import pprint
-from solverfc import solver, solver_model
+from questionary import print
+from solverinterfacesfc import solver, solver_model
 
 
 class test_solver(solver):
     def prompt_inputs(self) -> None:
         self.inputs = self.prompt_integer("Test")
+
     def print_outputs(self) -> None:
         print(self.ans)
         print(self.work)
