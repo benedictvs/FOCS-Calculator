@@ -82,7 +82,7 @@ class solver(ABC):
     def prompt_integer(self, message_text: str, lower_bound: int = None, upper_bound: int = None) -> int:
         """
         Enter the message text you want to be displayed to the user, as well as 
-        the qmark, which is what you want the interface to identify itself as. 
+        the qmark, which is what you want the interface to identify itself as.  
         Additionally, enter the upper/lower bounds (using >= and <=) of the 
         integer (if there are any).
         """
