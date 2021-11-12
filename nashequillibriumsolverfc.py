@@ -99,12 +99,6 @@ def nash(payoff_matrix, player_1_strategies, player_2_strategies):
                 if i != j and i < len(payoff_matrix[0]) and j < len(payoff_matrix[0]):
                     is_greater = False
                     for k in range(len(payoff_matrix)):
-                        print(str(len(payoff_matrix[0])))
-                        print_payoff_matrix(payoff_matrix, player_1_strategies,player_2_strategies)
-                        print(str(k))
-                        print(str(i))
-                        print(str(j))
-                        print("")
                         if float(payoff_matrix[k][i][1]) > float(payoff_matrix[k][j][1]):
                             is_greater = True
                         if is_greater:
