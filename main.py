@@ -1,7 +1,10 @@
-from questionary import prompt, print
 import os
 import sys
-from testinterfacesolverfc import test_solver, test_solver_model
+
+from questionary import prompt, print
+from abstractclasses import solver
+
+from modules.testinterfacesolver import test_solver, test_solver_model
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -10,6 +13,7 @@ from testinterfacesolverfc import test_solver, test_solver_model
 
 class main:
     def __init__(self, *solvers: object) -> None:
+        self.solvers = solvers
         self.solver_options = []
         for solver in solvers:
             self.solver_options.append(str(solver))
@@ -32,8 +36,7 @@ class main:
         if solver_pick == 'Exit':
             print('FOCSCalc exitting...', style="bold italic fg:yellow")
             sys.exit(0)
-        TS = test_solver("Test", test_solver_model)
-        TS()
+        self.solvers[self.solver_options.index(solver_pick)]()
         return self.menu()
 
 # ————————————————————————————————————————————————
@@ -83,7 +86,8 @@ Then pass all your model objects into the main class initialization. Finally, Ma
 runs the program. 
 """
 
-TS = test_solver("Test", test_solver_model)
+TS = test_solver(name="Something_Else_Entirely", model=test_solver_model)
 
 Main = main(TS)
 Main()
+print(str(TS))

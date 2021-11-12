@@ -1,9 +1,6 @@
-import sys
-import os
-import math as m
-from pprint import pprint
 from abc import ABC, abstractmethod
-from questionary import Separator, prompt, print
+
+from questionary import prompt, print
 
 # ————————————————————————————————————————————————
 # SOLVER MODEL INTERFACE
@@ -86,10 +83,9 @@ class solver(ABC):
         Additionally, enter the upper/lower bounds (using >= and <=) of the 
         integer (if there are any).
         """
-        print("HERE")
         questions = [
             {
-                "qmark": str(self),
+                "qmark": self.name,
                 "type": "text",
                 "name": "integer",
                 "message": message_text,
