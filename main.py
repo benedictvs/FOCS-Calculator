@@ -8,11 +8,16 @@ from romansolverfc import romansolver
 from distance_solver import distancesolver
 from binomialsolverfc import binomialsolver
 from votingsolverfc import votingsolver
-# ————————————————————————————————————————————————
-# GLOBAL VARIABLES
-# ————————————————————————————————————————————————
 
-solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Exit']
+class main:
+# ————————————————————————————————————————————————
+# INIT VARIABLES
+# ————————————————————————————————————————————————
+    def __init__(self, modules : list) -> None:
+        self.solver_options = []
+        for module in modules:
+            self.solver_options.insert()
+        self.solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Exit']
 
 
 # ————————————————————————————————————————————————
