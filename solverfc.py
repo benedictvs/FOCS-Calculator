@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from questionary import Separator, prompt, print
+import main
 
 # ————————————————————————————————————————————————
 # SOLVER INTERFACE
@@ -15,6 +17,9 @@ class solver(ABC):
         return self.name
 
     def __call__(self) -> tuple:
+        """
+        Call the solver like a function to run its intended exection order
+        """
         self.prompt_inputs()
         ans, work = self.model(self.inputs)
         return ans, work
@@ -29,6 +34,25 @@ class solver(ABC):
         """
         pass
 
+    def prompt_integer(qmark: str, message_text: str, lower_bound: int = None, upper_bound: int = None):
+        """
+        Enter the message text you want to be displayed to the user, as well as 
+        the qmark, which is what you want the interface to identify itself as. 
+        Additionally, enter the upper/lower bounds (using >= and <=) of the 
+        integer (if there are any).
+        """
+        questions = [
+            {
+                "qmark": qmark,
+                "type": "text",
+                "name": "integer",
+                "message": message_text,
+                "validate": lambda val: val.isdigit() and\
+                     (True if lower_bound is None else int(val) >= lower_bound) and\
+                          (True if upper_bound is None else int(val) <= upper_bound),
+            },
+        ]
+        return prompt(questions)
 
 # ————————————————————————————————————————————————
 # SOLVER MODEL INTERFACE
@@ -40,6 +64,18 @@ class solver_model(ABC):
         self.inputs = inputs
         self.ans: str = None
         self.work: str = None
+
+    def __call__(self) -> tuple:
+        """
+        Call the solver_model like a function for the intended execution order.
+        Called by the __call__ function in the solver class. 
+        """
+        self.solve()
+        if self.ans is None:
+            raise ValueError("solve did not set self.ans")
+        if self.work is None:
+            raise ValueError("solve did not set self.work")
+        return self.ans, self.work
 
     @abstractmethod
     def solve(self) -> None:
