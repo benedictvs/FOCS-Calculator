@@ -5,6 +5,7 @@ from questionary import prompt, print
 from abstractclasses import solver
 
 from modules.testinterfacesolver import test_solver, test_solver_model
+from modules.votingsystemssolver import voting_systems_solver, voting_systems_solver_model
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -86,8 +87,8 @@ Then pass all your model objects into the main class initialization. Finally, Ma
 runs the program. 
 """
 
-TS = test_solver(name="Something_Else_Entirely", model=test_solver_model)
+TS = test_solver(name="Test Module", model=test_solver_model)
+VOTING = voting_systems_solver(name="Voting Systems", model=voting_systems_solver_model)
 
-Main = main(TS)
+Main = main(TS, VOTING)
 Main()
-print(str(TS))
