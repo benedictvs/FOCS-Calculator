@@ -4,12 +4,13 @@ from questionary import print
 
 from abstractclasses import solver, solver_model
 '''
-The Voting Systems Module takes a number of ranked votes, then it solves 
+The Voting Systems Module takes a number of ranked votes, then it solves      
 for the winner of an election, given some voting system.
 
 For now, the system implements the following systems:
 
-Borda - top candidate gets n-1 points, second gets n-2... to the bottom candidate who gets 0
+Borda - top candidate gets n-1 points, second gets n-2... to the bottom 
+        candidate who gets 0
 Plurality - top candidate gets 1 point; all others get 0
 '''
 
@@ -67,12 +68,13 @@ class voting_systems_solver_model(solver_model):
 
     def borda(self) -> tuple:
         """
-        calculates the winners, the count of how many points candidates got, 
+        calculates the winners, the count of how many points candidates got,
         and the work needed to get those answers under Borda voting
         """
-        work = "\n\nBorda Voting: The lowest ranked candidate gets 0 points, " + \
-            "the next lowest gets 1, up to the highest candidate who gets n-1 " + \
-            "votes, where n is the number of candidates."
+        work = "\n\nBorda Voting: The lowest ranked candidate gets 0 "\
+            + "points, the next lowest gets 1, up to the highest  "\
+            + "candidate who gets n-1 votes, where n is the number of "\
+            + "candidates."
         work += "\nP = "
         count = self.count.copy()
 
@@ -110,8 +112,8 @@ class voting_systems_solver_model(solver_model):
         calculates the winners, the count of how many points candidates got, 
         and the work needed to get those answers under Plurality voting
         """
-        work = "Plurality Voting: The highest ranked candidate gets 1 point; " + \
-            "all other candidates get 0 points."
+        work = "Plurality Voting: The highest ranked candidate gets 1 " + \
+            "point; all other candidates get 0 points."
         work += "\nP = "
         count = self.count.copy()
 
@@ -166,12 +168,14 @@ class voting_systems_solver(solver):
 
         str_vote_permutations.insert(0, "Done")
         permutation_index = str_vote_permutations.index(
-            self.prompt_choices("Which permutations have votes >", str_vote_permutations))
+            self.prompt_choices("Which permutations have votes >",
+                                str_vote_permutations))
 
         votes = dict()
         while permutation_index != 0:
             num_votes = int(self.prompt_integer(
-                "Please enter the number of votes for this permutation > ", lower_bound=0))
+                "Please enter the number of votes for this permutation > ",
+                lower_bound=0))
             votes[vote_permutations[permutation_index-1]] = num_votes
             str_vote_permutations.pop(permutation_index)
             vote_permutations.pop(permutation_index-1)

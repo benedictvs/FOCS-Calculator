@@ -16,7 +16,7 @@ class solver_model(ABC):
 
     def __call__(self) -> tuple:
         """
-        Call the solver_model like a function for the intended execution order.
+        Call the solver_model like a function for the intended execution order
         Called by the __call__ function in the solver class. 
         """
         self.solve()
@@ -77,7 +77,8 @@ class solver(ABC):
         """
         pass
 
-    def prompt_integer(self, message_text: str, lower_bound: int = None, upper_bound: int = None) -> int:
+    def prompt_integer(self, message_text: str, lower_bound: int = None,
+                       upper_bound: int = None) -> int:
         """
         Helper function to prompt for integer
 
@@ -98,7 +99,8 @@ class solver(ABC):
         ]
         return int(prompt(questions)['integer'])
 
-    def prompt_integer_custom(self, message_text: str, validate: Callable = None, *args) -> int:
+    def prompt_integer_custom(self, message_text: str,
+                              validate: Callable = None, *args) -> int:
         """
         Helper function to prompt for integer, with custom validation
 
@@ -116,9 +118,23 @@ class solver(ABC):
                 "message": message_text,
             },
         ]
-        return int(prompt(questions, validate=lambda val: (validate(val, args) if validate else True))['integer'])
+        return int(prompt(questions, validate=lambda val: val.isdigit() and
+                          (validate(val, args) if validate else True))
+                   ['integer'])
 
-    def prompt_float(self, message_text: str, lower_bound: int = None, upper_bound: int = None) -> float:
+    def is_float(self, a: str) -> bool:
+        """
+        Takes a string and determines whether it can be converted to 
+        a float
+        """
+        try:
+            float(a)
+        except:
+            return False
+        return True
+
+    def prompt_float(self, message_text: str, lower_bound: int = None,
+                     upper_bound: int = None) -> float:
         """
         Helper function to prompt for float
 
@@ -132,14 +148,15 @@ class solver(ABC):
                 "type": "text",
                 "name": "float",
                 "message": message_text,
-                "validate": lambda val: val.isnumeric() and
+                "validate": lambda val: self.is_float(val) and
                 (True if lower_bound is None else int(val) >= lower_bound) and
                 (True if upper_bound is None else int(val) <= upper_bound),
             },
         ]
         return float(prompt(questions)['float'])
 
-    def prompt_float_custom(self, message_text: str, validate: Callable = None, *args) -> float:
+    def prompt_float_custom(self, message_text: str,
+                            validate: Callable = None, *args) -> float:
         """
         Helper function to prompt for float, with custom validation
 
@@ -157,9 +174,12 @@ class solver(ABC):
                 "message": message_text,
             },
         ]
-        return float(prompt(questions, validate=lambda val: (validate(val, args) if validate else True))['float'])
+        return float(prompt(questions, validate=lambda val: self.is_float(val)
+                            and (validate(val, args) if validate else True))
+                     ['float'])
 
-    def prompt_string(self, message_text: str, validate: Callable = None, *args) -> str:
+    def prompt_string(self, message_text: str, validate: Callable = None,
+                      *args) -> str:
         """
         Helper function to prompt for string 
 
@@ -177,7 +197,9 @@ class solver(ABC):
                 "message": message_text,
             },
         ]
-        return str(prompt(questions, validate=lambda val: (validate(val, args) if validate else True))['string'])
+        return str(prompt(questions, validate=lambda val:
+                          (validate(val, args) if validate else True))
+                   ['string'])
 
     def prompt_choices(self, message_text: str, choices: list) -> any:
         """
