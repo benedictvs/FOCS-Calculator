@@ -4,97 +4,55 @@ from questionary import prompt, print
 
 from abstractclasses import solver, solver_model
 
-global n_arg
-    n_arg = int(prompt_upper_binomial()['n_input'])
-    k_arg = int(prompt_lower_binomial()['k_input'])
-    solution = binomialsolvermodule(n_arg, k_arg)
-    print('\nYour answer: {}'.format(solution.ans),
-          style="bold italic fg:yellow")
-    print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
-    input('\nPlease hit enter when you are finished.')
+"""
+Binomial Coefficient module solves for the number of combinations of k
+elements in a set of n elements. 
+"""
+
+# ————————————————————————————————————————————————
+# BINOMIAL COEFFICIENT SOLVER CLASS
+# ————————————————————————————————————————————————
 
 
 class binomial_coefficient_solver(solver):
     def prompt_inputs(self) -> None:
-        n_arg = self.prompt_choices()
+        n_arg = self.prompt_integer(
+            "Please enter the size of the set of elements (n) > ", 1)
+        k_arg = self.prompt_integer(
+            "Please enter how many elements are chosen from that set (k) > ",
+            1, n_arg)
+
+        # Set inputs
+        self.inputs['n_arg'] = n_arg
+        self.inputs['k_arg'] = k_arg
+
+# ————————————————————————————————————————————————
+# BINOMIAL COEFFICIENT MODEL CLASS
+# ————————————————————————————————————————————————
+
 
 class binomial_coefficient_model(solver_model):
     def solve(self) -> None:
-        return super().solve()
+        """
+        Takes self.inputs and solves the binomial coefficient
+        """
+        n = self.inputs['n_arg']
+        k = self.inputs['k_arg']
+        self.ans = self.binomial(n, k)
+        self.work = self.binomialwork(n, k)
 
-# ————————————————————————————————————————————————
-# MODULE PROMPTS
-# ————————————————————————————————————————————————
+    def binomial(self, n: int, k: int) -> int:
+        """
+        Binomial coefficient formula
+        """
+        return m.factorial(n) / (m.factorial(k) * (m.factorial(n-k)))
 
-
-def prompt_upper_binomial(**kwargs):
-    questions = [
-        {
-            "qmark": "BINOMIAL",
-            "type": "text",
-            "name": "n_input",
-            "message": "Please enter the upper value (n) > ",
-            "validate": lambda val: val.isnumeric() and int(val) > 0,
-        },
-    ]
-    return prompt(questions)
-
-
-def prompt_lower_binomial(**kwargs):
-    questions = [
-        {
-            "qmark": "BINOMIAL",
-            "type": "text",
-            "name": "k_input",
-            "message": "Please enter the lower value (k) > ",
-            "validate": lambda val: val.isnumeric() and int(val) > 0 and int(val) < n_arg,
-        },
-    ]
-    return prompt(questions)
-
-# ————————————————————————————————————————————————
-# SOLVER FUNCTIONS
-# ————————————————————————————————————————————————
-
-
-def binomial(n: int, k: int) -> 'Integer':
-    return m.factorial(n) / (m.factorial(k) * (m.factorial(n-k)))
-
-
-def binomialwork(n: int, k: int) -> 'String':
-    steps = 'Recall the binomial coefficient equation:\n'
-    steps += 'n! / (k! * (n-k!))\n'
-    steps += 'Plug in our value for n:\n'
-    steps += '{}! / (k! * ({}-k)!)\n'.format(n, n)
-    steps += 'Finally, plug in our value for k and compute:\n'
-    steps += '{}! / ({}! * ({}-{})!)\n'.format(n, k, n, k)
-    steps += '={}'.format(binomial(n, k))
-    return steps
-
-
-# ————————————————————————————————————————————————
-# OBJECT DEFINITION OF ANSWER
-# ————————————————————————————————————————————————
-
-class binomialsolvermodule:
-    def __init__(self, n: int, k: int):
-        self.n = n
-        self.k = k
-        self.ans = binomial(n, k)
-        self.work = binomialwork(n, k)
-
-# ————————————————————————————————————————————————
-# MAIN FUNCTION
-# ————————————————————————————————————————————————
-
-
-def binomialsolver():
-    # Define the first euclid argument as global so that we can compare the second input to it
-    global n_arg
-    n_arg = int(prompt_upper_binomial()['n_input'])
-    k_arg = int(prompt_lower_binomial()['k_input'])
-    solution = binomialsolvermodule(n_arg, k_arg)
-    print('\nYour answer: {}'.format(solution.ans),
-          style="bold italic fg:yellow")
-    print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
-    input('\nPlease hit enter when you are finished.')
+    def binomialwork(self, n: int, k: int) -> str:
+        steps = 'Recall the binomial coefficient equation:\n'
+        steps += 'n! / (k! * (n-k!))\n'
+        steps += 'Plug in our value for n:\n'
+        steps += '{}! / (k! * ({}-k)!)\n'.format(n, n)
+        steps += 'Finally, plug in our value for k and compute:\n'
+        steps += '{}! / ({}! * ({}-{})!)\n'.format(n, k, n, k)
+        steps += '={}'.format(self.binomial(n, k))
+        return steps

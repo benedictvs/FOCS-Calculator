@@ -43,7 +43,7 @@ class solver(ABC):
     def __init__(self, name: str, model: solver_model) -> None:
         self.name = name
         self.model = model
-        self.inputs: dict = None
+        self.inputs: dict = dict()
         self.ans: str = None
         self.work: str = None
 
@@ -55,7 +55,7 @@ class solver(ABC):
         Call the solver like a function to run its intended exection order
         """
         self.prompt_inputs()
-        if self.inputs is None:
+        if not self.inputs:
             raise ValueError("self.inputs not set in prompt_inputs")
         _model = self.model(**self.inputs)
         self.ans, self.work = _model()

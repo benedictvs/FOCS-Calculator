@@ -6,6 +6,7 @@ from abstractclasses import solver
 
 from modules.testinterfacesolver import test_solver, test_solver_model
 from modules.votingsystemssolver import voting_systems_solver, voting_systems_solver_model
+from modules.binomialsolver import binomial_coefficient_solver, binomial_coefficient_model
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -88,7 +89,8 @@ runs the program.
 """
 
 TS = test_solver(name="Test Module", model=test_solver_model)
-VOTING = voting_systems_solver(name="Voting Systems", model=voting_systems_solver_model)
+voting = voting_systems_solver(name="Voting Systems", model=voting_systems_solver_model)
+binomial_coefficient = binomial_coefficient_solver(name="Binomial Coefficient", model=binomial_coefficient_model)
 
-Main = main(TS, VOTING)
+Main = main(TS, voting, binomial_coefficient)
 Main()

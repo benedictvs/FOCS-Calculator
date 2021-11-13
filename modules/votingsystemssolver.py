@@ -185,6 +185,5 @@ class voting_systems_solver(solver):
             )
 
         # Set Inputs
-        self.inputs = dict()
         self.inputs['candidates'] = candidates
         self.inputs['votes'] = votes
