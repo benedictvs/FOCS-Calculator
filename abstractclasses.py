@@ -118,6 +118,47 @@ class solver(ABC):
         ]
         return int(prompt(questions, validate=lambda val: (validate(val, args) if validate else True))['integer'])
 
+    def prompt_float(self, message_text: str, lower_bound: int = None, upper_bound: int = None) -> float:
+        """
+        Helper function to prompt for float
+
+        Enter the message text you want to be displayed to the user.  
+        Additionally, enter the upper/lower bounds (using >= and <=) of the 
+        integer (if there are any).
+        """
+        questions = [
+            {
+                "qmark": self.name,
+                "type": "text",
+                "name": "float",
+                "message": message_text,
+                "validate": lambda val: val.isnumeric() and
+                (True if lower_bound is None else int(val) >= lower_bound) and
+                (True if upper_bound is None else int(val) <= upper_bound),
+            },
+        ]
+        return float(prompt(questions)['float'])
+
+    def prompt_float_custom(self, message_text: str, validate: Callable = None, *args) -> float:
+        """
+        Helper function to prompt for float, with custom validation
+
+        Enter the message text you want to be displayed to the user.  
+        Additionally, you can add optional validation logic, using 
+        the validate function, and args to pass into it. The function should
+        work as follows, where val is the value entered by the user:
+            def validate(val, args) -> bool
+        """
+        questions = [
+            {
+                "qmark": self.name,
+                "type": "text",
+                "name": "float",
+                "message": message_text,
+            },
+        ]
+        return float(prompt(questions, validate=lambda val: (validate(val, args) if validate else True))['float'])
+
     def prompt_string(self, message_text: str, validate: Callable = None, *args) -> str:
         """
         Helper function to prompt for string 

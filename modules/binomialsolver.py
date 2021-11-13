@@ -1,7 +1,26 @@
-from questionary import Separator, prompt, print
-from pprint import pprint
 import math as m
-import os
+
+from questionary import prompt, print
+
+from abstractclasses import solver, solver_model
+
+global n_arg
+    n_arg = int(prompt_upper_binomial()['n_input'])
+    k_arg = int(prompt_lower_binomial()['k_input'])
+    solution = binomialsolvermodule(n_arg, k_arg)
+    print('\nYour answer: {}'.format(solution.ans),
+          style="bold italic fg:yellow")
+    print('Work:\n{}'.format(solution.work), style="bold italic fg:yellow")
+    input('\nPlease hit enter when you are finished.')
+
+
+class binomial_coefficient_solver(solver):
+    def prompt_inputs(self) -> None:
+        n_arg = self.prompt_choices()
+
+class binomial_coefficient_model(solver_model):
+    def solve(self) -> None:
+        return super().solve()
 
 # ————————————————————————————————————————————————
 # MODULE PROMPTS
