@@ -5,8 +5,12 @@ from questionary import prompt, print
 from abstractclasses import solver
 
 from modules.testinterfacesolver import test_solver, test_solver_model
-from modules.votingsystemssolver import voting_systems_solver, voting_systems_solver_model
-from modules.binomialsolver import binomial_coefficient_solver, binomial_coefficient_model
+from modules.votingsystems import voting_systems_solver,\
+    voting_systems_solver_model
+from modules.binomialcoefficient import binomial_coefficient_solver,\
+    binomial_coefficient_model
+from modules.euclidiandivision import euclidian_division_solver,\
+    euclidian_division_model
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -60,7 +64,8 @@ class main:
   / /_  / / / / /    \__ \/ /   / /| | / /   / /     ║
  / __/ / /_/ / /___ ___/ / /___/ ___ |/ /___/ /___   ║
 /_/    \____/\____//____/\____/_/  |_/_____/\____/   ║
-═════════════════════════════════════════════════════╝''', style="bold italic fg:yellow")
+═════════════════════════════════════════════════════╝''',
+              style="bold italic fg:yellow")
 
 # ————————————————————————————————————————————————
 # MAINFILE QUESTION DEFINITIONS
@@ -83,14 +88,18 @@ class main:
 # MAIN CLASS AND MODULE INITIALIZATION
 # ————————————————————————————————————————————————
 """
-In order to run the progarm, initialize your models with the module name and model class.
-Then pass all your model objects into the main class initialization. Finally, Main()
-runs the program. 
+In order to run the progarm, initialize your models with the module name 
+and model class. Then pass all your model objects into the main class 
+initialization. Finally, Main() runs the program. 
 """
 
 TS = test_solver(name="Test Module", model=test_solver_model)
-voting = voting_systems_solver(name="Voting Systems", model=voting_systems_solver_model)
-binomial_coefficient = binomial_coefficient_solver(name="Binomial Coefficient", model=binomial_coefficient_model)
+voting = voting_systems_solver(
+    name="Voting Systems", model=voting_systems_solver_model)
+binomial_coefficient = binomial_coefficient_solver(
+    name="Binomial Coefficient", model=binomial_coefficient_model)
+euclidian_division = euclidian_division_solver(
+    name="Euclidian Division", model=euclidian_division_model)
 
-Main = main(TS, voting, binomial_coefficient)
+Main = main(TS, voting, binomial_coefficient, euclidian_division)
 Main()
