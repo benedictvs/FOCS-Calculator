@@ -189,39 +189,7 @@ class voting:
         return count, winners, work
 
     def veto(self):
-        work = "\n\nVeto Voting: All candidates, save for the lowest ranking candidate," + \
-            "get 1 point. The lowest ranking candidate is vetoed in each vote."
-        count = self.count.copy()
-
-        work += "\nP = "
-        votes_keys = [*self.votes.keys()]
-        work += str(self.votes[votes_keys[0]]) + \
-            "@[" + " > ".join(votes_keys[0]) + "]"
-        for i in range(1, len(votes_keys)):
-            work += " + " + \
-                str(self.votes[votes_keys[i]]) + \
-                "@[" + " > ".join(votes_keys[i]) + "]"
-
-
-        for v in self.votes:
-            work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
-            for i in range(len(self.candidates)):
-                work += "\n" + str(v[i]) + " = "
-                if i != len(self.candidates)-1:
-                    work += str(count[v[i]]) + " + 1 * " + str(self.votes[v]) + " = "
-                    count[v[i]] += self.votes[v]
-                else:
-                    work += str(count[v[i]]) + " + 0 * " + str(self.votes[v]) + " = "
-                work += str(count[v[i]])
-
-        work += "\n"
-        for c in self.candidates:
-            work += "\n" + str(c) + " = " + str(count[c])
-
-        max_val = max(count.values())
-        winners = [key for key, val in count.items() if val == max_val]
-
-        return count, winners, work
+        pass
 
     def plurality_with_runoff(self):
         pass
