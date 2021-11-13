@@ -2,17 +2,17 @@ import os
 import sys
 
 from questionary import prompt, print
-from abstractclasses import solver
 
 from modules.testinterfacesolver import test_solver, test_solver_model
 from modules.votingsystems import voting_systems_solver,\
-    voting_systems_solver_model
+    voting_systems_model
 from modules.binomialcoefficient import binomial_coefficient_solver,\
     binomial_coefficient_model
 from modules.euclidiandivision import euclidian_division_solver,\
     euclidian_division_model
 from modules.vectordistance import vector_distance_solver,\
     vector_distance_model
+from modules.romannumeral import roman_numeral_solver, roman_numeral_model
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -97,15 +97,17 @@ initialization. Finally, Main() runs the program.
 
 test = test_solver(name="Test Module", model=test_solver_model)
 voting = voting_systems_solver(
-    name="Voting Systems", model=voting_systems_solver_model)
+    name="Voting Systems", model=voting_systems_model)
 binomial_coefficient = binomial_coefficient_solver(
     name="Binomial Coefficient", model=binomial_coefficient_model)
 euclidian_division = euclidian_division_solver(
     name="Euclidian Division", model=euclidian_division_model)
 vector_distance = vector_distance_solver(name="Vector Distance",
                                          model=vector_distance_model)
+roman_numeral = roman_numeral_solver(name="Roman Numeral",
+                                     model=roman_numeral_model)
 
 
-Main = main(test, voting, binomial_coefficient, euclidian_division,
-            vector_distance)
-Main()
+_main = main(test, voting, binomial_coefficient, euclidian_division,
+            vector_distance, roman_numeral)
+_main()

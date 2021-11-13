@@ -74,5 +74,5 @@ class vector_distance_model(solver_model):
         squared = (x0 - x1)**2 + (y0 - y1)**2 + (z0 - z1)**2
         v += 'add x squared, y squared, and z squared together to get the '\
             + 'answer: {}'.format(
-            m.sqrt(squared)) + '\n'
+                m.sqrt(squared)) + '\n'
         return v

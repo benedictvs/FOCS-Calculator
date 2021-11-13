@@ -19,7 +19,7 @@ Plurality - top candidate gets 1 point; all others get 0
 # ————————————————————————————————————————————————
 
 
-class voting_systems_solver_model(solver_model):
+class voting_systems_model(solver_model):
     def __init__(self, **inputs) -> None:
         super().__init__(**inputs)
         self.candidates = self.inputs['candidates']

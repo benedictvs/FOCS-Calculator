@@ -197,7 +197,7 @@ class solver(ABC):
                 "message": message_text,
             },
         ]
-        return str(prompt(questions, validate=lambda val:
+        return str(prompt(questions, validate=lambda val: val.isalpha() and
                           (validate(val, args) if validate else True))
                    ['string'])
 
