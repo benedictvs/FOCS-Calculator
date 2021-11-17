@@ -1,67 +1,113 @@
-from questionary import Separator, prompt, print
-from pprint import pprint
-import math as m
 import os
 import sys
-from euclidsolverfc import euclidsolver
-from romansolverfc import romansolver
-from distance_solver import distancesolver
-from binomialsolverfc import binomialsolver
-from votingsolverfc import votingsolver
+
+from questionary import prompt, print
+
+from modules.testinterfacesolver import test_solver, test_solver_model
+from modules.votingsystems import voting_systems_solver,\
+    voting_systems_model
+from modules.binomialcoefficient import binomial_coefficient_solver,\
+    binomial_coefficient_model
+from modules.euclidiandivision import euclidian_division_solver,\
+    euclidian_division_model
+from modules.vectordistance import vector_distance_solver,\
+    vector_distance_model
+from modules.romannumeral import roman_numeral_solver, roman_numeral_model
+
 # ————————————————————————————————————————————————
-# GLOBAL VARIABLES
+# MAIN CLASS
 # ————————————————————————————————————————————————
 
-solver_options = ['Euclid', 'Roman', 'Distance', 'Binomial', 'Voting', 'Exit']
 
+class main:
+    def __init__(self, *solvers: object) -> None:
+        self.solvers = solvers
+        self.solver_options = []
+        for solver in solvers:
+            self.solver_options.append(str(solver))
+        self.solver_options.append('Exit')
+
+    def __call__(self) -> None:
+        self.menu()
+
+# ————————————————————————————————————————————————
+# MENU LOGIC
+# ————————————————————————————————————————————————
+
+    def menu(self) -> None:
+        """
+        Recursive Main Menu Function calls other helper functions
+        """
+        self.clear()
+        self.logo()
+        solver_pick = self.pick_solver_question()['solver_choice']
+        if solver_pick == 'Exit':
+            print('FOCSCalc exitting...', style="bold italic fg:yellow")
+            sys.exit(0)
+        self.solvers[self.solver_options.index(solver_pick)]()
+        return self.menu()
 
 # ————————————————————————————————————————————————
 # VISUAL HELPER FUNCTIONS
 # ————————————————————————————————————————————————
 
-def clear() -> 'Clears terminal based on user OS':
-    os.system('cls' if os.name == 'nt' else 'clear')
+    def clear(self) -> None:
+        """
+        Clears terminal based on user OS'
+        """
+        os.system('cls' if os.name == 'nt' else 'clear')
 
-
-def logo() -> 'Provides the focs calc logo in the top left corner':
-    print('''    __________  ___________ _________    __    ______║
+    def logo(self) -> None:
+        """
+        Provides the focs calc logo in the top left corner
+        """
+        print('''    __________  ___________ _________    __    ______║
    / ____/ __ \/ ____/ ___// ____/   |  / /   / ____/║
   / /_  / / / / /    \__ \/ /   / /| | / /   / /     ║
  / __/ / /_/ / /___ ___/ / /___/ ___ |/ /___/ /___   ║
 /_/    \____/\____//____/\____/_/  |_/_____/\____/   ║
-═════════════════════════════════════════════════════╝''', style="bold italic fg:yellow")
+═════════════════════════════════════════════════════╝''',
+              style="bold italic fg:yellow")
 
 # ————————————————————————————————————————————————
 # MAINFILE QUESTION DEFINITIONS
 # ————————————————————————————————————————————————
 
+    def pick_solver_question(self):
+        questions = [
+            {
+                "qmark": "FC",
+                "type": "select",
+                "name": "solver_choice",
+                "message": "Which type of question would you like to solve?",
+                "choices": self.solver_options,
+            },
+        ]
+        return prompt(questions)
 
-def pick_solver_question(**kwargs):
-    questions = [
-        {
-            "qmark": "FC",
-            "type": "select",
-            "name": "solver_choice",
-            "message": "Which type of question would you like to solve?",
-            "choices": solver_options,
-        },
-    ]
-    return prompt(questions)
 
 # ————————————————————————————————————————————————
-# MAINFILE LOGIC
+# MAIN CLASS AND MODULE INITIALIZATION
 # ————————————————————————————————————————————————
+"""
+In order to run the progarm, initialize your models with the module name 
+and model class. Then pass all your model objects into the main class 
+initialization. Finally, Main() runs the program. 
+"""
+
+test = test_solver(name="Test Module", model=test_solver_model)
+voting = voting_systems_solver(
+    name="Voting Systems", model=voting_systems_model)
+binomial_coefficient = binomial_coefficient_solver(
+    name="Binomial Coefficient", model=binomial_coefficient_model)
+euclidian_division = euclidian_division_solver(
+    name="Euclidian Division", model=euclidian_division_model)
+vector_distance = vector_distance_solver(name="Vector Distance",
+                                         model=vector_distance_model)
+roman_numeral = roman_numeral_solver(name="Roman Numeral",
+                                     model=roman_numeral_model)
 
 
-def menu():
-    clear()
-    logo()
-    solver_pick = pick_solver_question()['solver_choice']
-    if solver_pick == 'Exit':
-        print('FOCSCalc exitting...', style="bold italic fg:yellow")
-        sys.exit(0)
-    eval(solver_pick.lower()+'solver()')
-    return menu()
-
-
-menu()
+_main = main(test, voting, binomial_coefficient, euclidian_division,
+            vector_distance, roman_numeral)
+_main()
