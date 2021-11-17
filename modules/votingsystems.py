@@ -15,6 +15,54 @@ Plurality - top candidate gets 1 point; all others get 0
 '''
 
 # ————————————————————————————————————————————————
+# VOTING SYSTEMS SOLVER CLASS
+# ————————————————————————————————————————————————
+
+
+class voting_systems_solver(solver):
+    def prompt_inputs(self) -> None:
+        candidates = []
+
+        num_candidates = self.prompt_integer(
+            "Please enter the number of candidates (1-10) > ", 1, 10)
+        for i in range(num_candidates):
+            message_text = "Please enter candidate #" + str(i+1)
+
+            # Validate function for candidate prompt
+            validate = lambda val, *args: not (val in args[0][0])
+
+            candidate = str(self.prompt_string(
+                message_text, validate, candidates))
+            candidates.append(candidate)
+
+        vote_permutations = list(permutations(candidates))
+        str_vote_permutations = vote_permutations.copy()
+        for i in range(len(str_vote_permutations)):
+            str_vote_permutations[i] = " > ".join(str_vote_permutations[i])
+
+        str_vote_permutations.insert(0, "Done")
+        permutation_index = str_vote_permutations.index(
+            self.prompt_choices("Which permutations have votes >",
+                                str_vote_permutations))
+
+        votes = dict()
+        while permutation_index != 0:
+            num_votes = int(self.prompt_integer(
+                "Please enter the number of votes for this permutation > ",
+                lower_bound=0))
+            votes[vote_permutations[permutation_index-1]] = num_votes
+            str_vote_permutations.pop(permutation_index)
+            vote_permutations.pop(permutation_index-1)
+            permutation_index = str_vote_permutations.index(
+                self.prompt_choices(
+                    "Which permutations have votes >", str_vote_permutations)
+            )
+
+        # Set Inputs
+        self.inputs['candidates'] = candidates
+        self.inputs['votes'] = votes
+
+# ————————————————————————————————————————————————
 # VOTING SYSTEMS MODEL CLASS
 # ————————————————————————————————————————————————
 
@@ -139,51 +187,3 @@ class voting_systems_model(solver_model):
         max_val = max(count.values())
         winners = [key for key, val in count.items() if val == max_val]
         return count, winners, work
-
-# ————————————————————————————————————————————————
-# VOTING SYSTEMS SOLVER CLASS
-# ————————————————————————————————————————————————
-
-
-class voting_systems_solver(solver):
-    def prompt_inputs(self) -> None:
-        candidates = []
-
-        num_candidates = self.prompt_integer(
-            "Please enter the number of candidates (1-10) > ", 1, 10)
-        for i in range(num_candidates):
-            message_text = "Please enter candidate #" + str(i+1)
-
-            # Validate function for candidate prompt
-            validate = lambda val, *args: not (val in args[0][0])
-
-            candidate = str(self.prompt_string(
-                message_text, validate, candidates))
-            candidates.append(candidate)
-
-        vote_permutations = list(permutations(candidates))
-        str_vote_permutations = vote_permutations.copy()
-        for i in range(len(str_vote_permutations)):
-            str_vote_permutations[i] = " > ".join(str_vote_permutations[i])
-
-        str_vote_permutations.insert(0, "Done")
-        permutation_index = str_vote_permutations.index(
-            self.prompt_choices("Which permutations have votes >",
-                                str_vote_permutations))
-
-        votes = dict()
-        while permutation_index != 0:
-            num_votes = int(self.prompt_integer(
-                "Please enter the number of votes for this permutation > ",
-                lower_bound=0))
-            votes[vote_permutations[permutation_index-1]] = num_votes
-            str_vote_permutations.pop(permutation_index)
-            vote_permutations.pop(permutation_index-1)
-            permutation_index = str_vote_permutations.index(
-                self.prompt_choices(
-                    "Which permutations have votes >", str_vote_permutations)
-            )
-
-        # Set Inputs
-        self.inputs['candidates'] = candidates
-        self.inputs['votes'] = votes
