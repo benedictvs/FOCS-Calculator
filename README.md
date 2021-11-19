@@ -6,7 +6,7 @@ Installing FOCS Calculator is quite simple. There are very few requirements.
 
 1. Clone the repository locally onto your machine
 2. Open up your terminal and enter the command `python --version`. If you do not have at least version 3.9.6, or you do not have Python installed. Please update and install that now.
-3. Navigate to the directory that you installed FOCS Calculator to, and run the command `pip freeze > requirements.txt`
+3. Navigate to the directory that you installed FOCS Calculator to, and run the command `pip install -r requirements.txt`
 4. Finally, run the command `python main.py` and you should be good to go!
 
 ## Development Guide
