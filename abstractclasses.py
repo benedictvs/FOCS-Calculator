@@ -158,8 +158,8 @@ class solver(ABC):
                 "name": "float",
                 "message": message_text,
                 "validate": lambda val: self.is_float(val)
-                and (True if lower_bound is None else int(val) >= lower_bound)
-                and (True if upper_bound is None else int(val) <= upper_bound),
+                and (True if lower_bound is None else float(val) >= lower_bound)
+                and (True if upper_bound is None else float(val) <= upper_bound),
             },
         ]
         return float(prompt(questions)["float"])

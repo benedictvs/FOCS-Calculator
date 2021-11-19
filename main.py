@@ -30,6 +30,10 @@ from modules.nashequillibrium import (
     nash_equillibrium_solver,
     nash_equillibrium_model,
 )
+from modules.conditionalprobability import (
+    conditional_probability_solver,
+    conditional_probability_model,
+)
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -138,6 +142,9 @@ misspell_combinations = misspell_combinations_solver(
 nash_equillibrium = nash_equillibrium_solver(
     name="Nash Equillibrium", model=nash_equillibrium_model
 )
+conditional_probability = conditional_probability_solver(
+    name="Conditional Probability", model=conditional_probability_model
+)
 
 _main = main(
     voting,
@@ -148,5 +155,6 @@ _main = main(
     matrix_multiplication,
     misspell_combinations,
     nash_equillibrium,
+    # conditional_probability,
 )
 _main()
