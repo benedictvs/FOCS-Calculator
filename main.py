@@ -8,7 +8,6 @@ from modules.matrixmult import (
     matrix_multiplication_model,
     matrix_multiplication_solver,
 )
-from modules.testinterfacesolver import test_solver, test_solver_model
 from modules.votingsystems import voting_systems_solver, voting_systems_model
 from modules.binomialcoefficient import (
     binomial_coefficient_solver,
@@ -115,7 +114,6 @@ and model class. Then pass all your model objects into the main class
 initialization. Finally, Main() runs the program.
 """
 
-test = test_solver(name="Test Module", model=test_solver_model)
 voting = voting_systems_solver(
     name="Voting Systems", model=voting_systems_model
 )
@@ -142,7 +140,6 @@ nash_equillibrium = nash_equillibrium_solver(
 )
 
 _main = main(
-    test,
     voting,
     binomial_coefficient,
     euclidian_division,
