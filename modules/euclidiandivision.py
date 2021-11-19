@@ -12,8 +12,8 @@ remainder) recursively until it finds a greatest common divisor.
 
 class euclidian_division_solver(solver):
     def prompt_inputs(self) -> None:
-        x_arg = self.prompt_integer("Please enter the dividend > ")
-        y_arg = self.prompt_integer("Please enter the divisor > ", x_arg)
+        x_arg = self.prompt_integer("Please enter the divisor > ")
+        y_arg = self.prompt_integer("Please enter the dividend > ", x_arg)
 
         # Set inputs
         self.inputs["x_arg"] = x_arg
