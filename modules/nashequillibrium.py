@@ -13,8 +13,8 @@ then it solves for a nash equillibrium, if one exists.
 
 class nash_equillibrium_solver(solver):
     def format_payoff_matrix(
-        self, payoff_matrix, player_1_strategies, player_2_strategies
-    ):
+        self, payoff_matrix: list, player_1_strategies: list, player_2_strategies: list
+    ) -> str:
         ret = "\t    Player 1\n"
         ret += "\t          " + player_1_strategies[0] + "            "
         for j in range(1, len(payoff_matrix[0])):
@@ -148,6 +148,7 @@ class nash_equillibrium_solver(solver):
 # NASH EQUILLIBRIUM MODEL CLASS
 # ————————————————————————————————————————————————
 
+
 class nash_equillibrium_model(solver_model):
     def __init__(self, **inputs) -> None:
         super().__init__(**inputs)
@@ -162,7 +163,9 @@ class nash_equillibrium_model(solver_model):
             payoff_matrix, player_1_strategies, player_2_strategies
         )
 
-    def nash(self, payoff_matrix, player_1_strategies, player_2_strategies):
+    def nash(
+        self, payoff_matrix: list, player_1_strategies: list, player_2_strategies: list
+    ) -> tuple:
         work = ""
 
         no_dominant_exists = False
