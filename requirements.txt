@@ -1,2 +1,4 @@
+black==21.11b1
+flake8==4.0.1
 numpy==1.21.4
 questionary==1.10.0
