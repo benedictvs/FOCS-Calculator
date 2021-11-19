@@ -166,6 +166,11 @@ class nash_equillibrium_model(solver_model):
     def nash(
         self, payoff_matrix: list, player_1_strategies: list, player_2_strategies: list
     ) -> tuple:
+        """
+        Takes a payoff matrix from game theory and the available strategies for 
+        both players. Solves for the Nash equillibrium, if there is one, as well
+        as displaying work
+        """
         work = ""
 
         no_dominant_exists = False
