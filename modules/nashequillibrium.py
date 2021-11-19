@@ -1,8 +1,8 @@
 from abstractclasses import solver, solver_model
 
 """
-The Nash Equillibrium solver takes a payoff matrix from game theory, 
-then it solves for a nash equillibrium, if one exists. 
+The Nash Equillibrium solver takes a payoff matrix from game theory,
+then it solves for a nash equillibrium, if one exists.
 """
 
 
@@ -13,11 +13,14 @@ then it solves for a nash equillibrium, if one exists.
 
 class nash_equillibrium_solver(solver):
     def format_payoff_matrix(
-        self, payoff_matrix: list, player_1_strategies: list, player_2_strategies: list
+        self,
+        payoff_matrix: list,
+        player_1_strategies: list,
+        player_2_strategies: list,
     ) -> str:
         """
-        This is a helper function that turns a payoff matrix and available strategies into 
-        ASCII art of a payoff matrix
+        This is a helper function that turns a payoff matrix and available
+        strategies into ASCII art of a payoff matrix
         """
         ret = "\t    Player 1\n"
         ret += "\t          " + player_1_strategies[0] + "            "
@@ -31,7 +34,9 @@ class nash_equillibrium_solver(solver):
         ret += "Player 2  " + str(player_2_strategies[0]) + " |"
         for j in range(len(payoff_matrix[0])):
             ret += (
-                "{:>5g}, {:<5g}".format(payoff_matrix[0][j][0], payoff_matrix[0][j][1])
+                "{:>5g}, {:<5g}".format(
+                    payoff_matrix[0][j][0], payoff_matrix[0][j][1]
+                )
                 + "|"
             )
         ret += "\n"
@@ -96,17 +101,22 @@ class nash_equillibrium_solver(solver):
         ]
 
         num_strategies_1 = self.prompt_integer(
-            "Please enter the number of strategies for player 1 (2-13) > ", 2, 13
+            "Please enter the number of strategies for player 1 (2-13) > ",
+            2,
+            13,
         )
         num_strategies_2 = self.prompt_integer(
-            "Please enter the number of strategies for player 2 (2-13) > ", 2, 13
+            "Please enter the number of strategies for player 2 (2-13) > ",
+            2,
+            13,
         )
 
         player_1_strategies = player_1_strategies[:num_strategies_1]
         player_2_strategies = player_2_strategies[:num_strategies_2]
 
         payoff_matrix = [
-            [(0, 0) for i in range(num_strategies_1)] for j in range(num_strategies_2)
+            [(0, 0) for i in range(num_strategies_1)]
+            for j in range(num_strategies_2)
         ]
 
         print(
@@ -168,10 +178,14 @@ class nash_equillibrium_model(solver_model):
         )
 
     def nash(
-        self, payoff_matrix: list, player_1_strategies: list, player_2_strategies: list
+        self,
+        payoff_matrix: list,
+        player_1_strategies: list,
+        player_2_strategies: list,
     ) -> tuple:
         """
-        Takes a payoff matrix from game theory and the available strategies for both players. Solves for the Nash equillibrium
+        Takes a payoff matrix from game theory and the available strategies for
+        both players. Solves for the Nash equillibrium
         """
         work = ""
 
@@ -182,7 +196,11 @@ class nash_equillibrium_model(solver_model):
             is_break = False
             for i in range(len(payoff_matrix)):
                 for j in range(len(payoff_matrix)):
-                    if i != j and i < len(payoff_matrix) and j < len(payoff_matrix):
+                    if (
+                        i != j
+                        and i < len(payoff_matrix)
+                        and j < len(payoff_matrix)
+                    ):
                         is_greater = False
                         for k in range(len(payoff_matrix[0])):
                             if float(payoff_matrix[i][k][0]) >= float(
@@ -203,9 +221,11 @@ class nash_equillibrium_model(solver_model):
                             player_2_strategies.pop(i)
                             is_break = True
                             work += self.format_payoff_matrix(
-                                payoff_matrix, player_1_strategies, player_2_strategies
+                                payoff_matrix,
+                                player_1_strategies,
+                                player_2_strategies,
                             )
-                            work += '\n'
+                            work += "\n"
                             break
                     if is_break:
                         break
@@ -239,13 +259,15 @@ class nash_equillibrium_model(solver_model):
                                 + str(player_1_strategies[i])
                                 + "\n"
                             )
-                            for l in range(len(payoff_matrix)):
-                                payoff_matrix[l].pop(i)
+                            for index in range(len(payoff_matrix)):
+                                payoff_matrix[index].pop(i)
                             player_1_strategies.pop(i)
                             work += self.format_payoff_matrix(
-                                payoff_matrix, player_1_strategies, player_2_strategies
+                                payoff_matrix,
+                                player_1_strategies,
+                                player_2_strategies,
                             )
-                            work += '\n'
+                            work += "\n"
                             is_break = True
                             break
                     if not is_break:
@@ -256,12 +278,22 @@ class nash_equillibrium_model(solver_model):
             if is_break:
                 no_dominant_exists = False
 
-        if not (len(player_1_strategies) == 1 and len(player_2_strategies) == 1):
-            ans = "There is no Nash Equillibrium, since at least one player has multiple viable strategies.\n"
+        if not (
+            len(player_1_strategies) == 1 and len(player_2_strategies) == 1
+        ):
+            ans = (
+                "There is no Nash Equillibrium, since at least one player has"
+                + " multiple viable strategies.\n"
+            )
             work += ans
-            work += self.format_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies)
+            work += self.format_payoff_matrix(
+                payoff_matrix, player_1_strategies, player_2_strategies
+            )
         else:
-            ans = "This is the Nash Equillibrium of the entered payoff matrix, calculated by eliminating dominanted strategies.\n"
+            ans = (
+                "This is the Nash Equillibrium of the entered payoff matrix,"
+                + " calculated by eliminating dominanted strategies.\n"
+            )
             ans += self.format_payoff_matrix(
                 payoff_matrix, player_1_strategies, player_2_strategies
             )

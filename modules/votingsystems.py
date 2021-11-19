@@ -1,16 +1,14 @@
 from itertools import permutations
 
-from questionary import print
-
 from abstractclasses import solver, solver_model
 
 """
-The Voting Systems Module takes a number of ranked votes, then it solves      
+The Voting Systems Module takes a number of ranked votes, then it solves
 for the winner of an election, given some voting system.
 
 For now, the system implements the following systems:
 
-Borda - top candidate gets n-1 points, second gets n-2... to the bottom 
+Borda - top candidate gets n-1 points, second gets n-2... to the bottom
         candidate who gets 0
 Plurality - top candidate gets 1 point; all others get 0
 """
@@ -31,9 +29,12 @@ class voting_systems_solver(solver):
             message_text = "Please enter candidate #" + str(i + 1)
 
             # Validate function for candidate prompt
-            validate = lambda val, *args: not (val in args[0][0])
+            def validate(val, *args):
+                return not (val in args[0][0])
 
-            candidate = str(self.prompt_string(message_text, validate, candidates))
+            candidate = str(
+                self.prompt_string(message_text, validate, candidates)
+            )
             candidates.append(candidate)
 
         vote_permutations = list(permutations(candidates))
@@ -139,7 +140,12 @@ class voting_systems_model(solver_model):
         n = len(self.candidates) - 1
 
         votes_keys = [*self.votes.keys()]
-        work += str(self.votes[votes_keys[0]]) + "@[" + " > ".join(votes_keys[0]) + "]"
+        work += (
+            str(self.votes[votes_keys[0]])
+            + "@["
+            + " > ".join(votes_keys[0])
+            + "]"
+        )
         for i in range(1, len(votes_keys)):
             work += (
                 " + "
@@ -186,7 +192,12 @@ class voting_systems_model(solver_model):
         count = self.count.copy()
 
         votes_keys = [*self.votes.keys()]
-        work += str(self.votes[votes_keys[0]]) + "@[" + " > ".join(votes_keys[0]) + "]"
+        work += (
+            str(self.votes[votes_keys[0]])
+            + "@["
+            + " > ".join(votes_keys[0])
+            + "]"
+        )
         for i in range(1, len(votes_keys)):
             work += (
                 " + "
@@ -199,7 +210,12 @@ class voting_systems_model(solver_model):
         for v in self.votes:
             work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
             work += (
-                "\n" + str(v[0]) + " = " + str(count[v[0]]) + " + " + str(self.votes[v])
+                "\n"
+                + str(v[0])
+                + " = "
+                + str(count[v[0]])
+                + " + "
+                + str(self.votes[v])
             )
             count[v[0]] += self.votes[v]
             work += " = " + str(count[v[0]])

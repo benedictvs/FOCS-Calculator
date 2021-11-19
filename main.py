@@ -4,7 +4,10 @@ from typing import Dict
 
 from questionary import prompt, print
 
-from modules.matrixmult import matrix_multiplication_model, matrix_multiplication_solver
+from modules.matrixmult import (
+    matrix_multiplication_model,
+    matrix_multiplication_solver,
+)
 from modules.testinterfacesolver import test_solver, test_solver_model
 from modules.votingsystems import voting_systems_solver, voting_systems_model
 from modules.binomialcoefficient import (
@@ -15,13 +18,19 @@ from modules.euclidiandivision import (
     euclidian_division_solver,
     euclidian_division_model,
 )
-from modules.vectordistance import vector_distance_solver, vector_distance_model
+from modules.vectordistance import (
+    vector_distance_solver,
+    vector_distance_model,
+)
 from modules.romannumeral import roman_numeral_solver, roman_numeral_model
 from modules.misspellcombinations import (
     misspell_combinations_solver,
     mispell_combinations_model,
 )
-from modules.nashequillibrium import nash_equillibrium_solver, nash_equillibrium_model
+from modules.nashequillibrium import (
+    nash_equillibrium_solver,
+    nash_equillibrium_model,
+)
 
 # ————————————————————————————————————————————————
 # MAIN CLASS
@@ -101,13 +110,15 @@ class main:
 # MAIN CLASS AND MODULE INITIALIZATION
 # ————————————————————————————————————————————————
 """
-In order to run the progarm, initialize your models with the module name 
-and model class. Then pass all your model objects into the main class 
-initialization. Finally, Main() runs the program. 
+In order to run the progarm, initialize your models with the module name
+and model class. Then pass all your model objects into the main class
+initialization. Finally, Main() runs the program.
 """
 
 test = test_solver(name="Test Module", model=test_solver_model)
-voting = voting_systems_solver(name="Voting Systems", model=voting_systems_model)
+voting = voting_systems_solver(
+    name="Voting Systems", model=voting_systems_model
+)
 binomial_coefficient = binomial_coefficient_solver(
     name="Binomial Coefficient", model=binomial_coefficient_model
 )
@@ -117,7 +128,9 @@ euclidian_division = euclidian_division_solver(
 vector_distance = vector_distance_solver(
     name="Vector Distance", model=vector_distance_model
 )
-roman_numeral = roman_numeral_solver(name="Roman Numeral", model=roman_numeral_model)
+roman_numeral = roman_numeral_solver(
+    name="Roman Numeral", model=roman_numeral_model
+)
 matrix_multiplication = matrix_multiplication_solver(
     name="Matrix Multiplication", model=matrix_multiplication_model
 )

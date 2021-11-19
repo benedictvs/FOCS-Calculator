@@ -11,8 +11,8 @@ from questionary import prompt, print
 class solver_model(ABC):
     def __init__(self, **inputs) -> None:
         self.inputs = inputs
-        self.ans: str = None
-        self.work: str = None
+        self.ans = None
+        self.work = None
 
     def __call__(self) -> tuple:
         """
@@ -44,9 +44,9 @@ class solver(ABC):
     def __init__(self, name: str, model: solver_model) -> None:
         self.name = name
         self.model = model
-        self.inputs: dict = dict()
-        self.ans: str = None
-        self.work: str = None
+        self.inputs = dict()
+        self.ans = None
+        self.work = None
 
     def __str__(self) -> str:
         return self.name
@@ -63,8 +63,10 @@ class solver(ABC):
         self.prompt_outputs()
 
     def prompt_outputs(self) -> None:
-        print("\nYour answers:\n{}".format(self.ans), style="bold italic fg:yellow")
-        print("Work:\n{}".format(self.work), style="bold italic fg:yellow")
+        print("\nYour answers:\n{}".format(self.ans),
+              style="bold italic fg:yellow")
+        print("Work:\n{}".format(self.work),
+              style="bold italic fg:yellow")
         input("\nPlease hit enter when you are finished.")
 
     @abstractmethod
@@ -78,8 +80,8 @@ class solver(ABC):
         pass
 
     def prompt_integer(
-        self, message_text: str, lower_bound: int = None, upper_bound: int = None
-    ) -> int:
+            self, message_text: str, lower_bound: int = None,
+            upper_bound: int = None) -> int:
         """
         Helper function to prompt for integer
 
@@ -135,13 +137,13 @@ class solver(ABC):
         """
         try:
             float(a)
-        except:
+        except(ValueError):
             return False
         return True
 
     def prompt_float(
-        self, message_text: str, lower_bound: int = None, upper_bound: int = None
-    ) -> float:
+            self, message_text: str, lower_bound: int = None,
+            upper_bound: int = None) -> float:
         """
         Helper function to prompt for float
 
@@ -190,7 +192,8 @@ class solver(ABC):
             )["float"]
         )
 
-    def prompt_string(self, message_text: str, validate: Callable = None, *args) -> str:
+    def prompt_string(self, message_text: str, validate: Callable = None,
+                      *args) -> str:
         """
         Helper function to prompt for string
 

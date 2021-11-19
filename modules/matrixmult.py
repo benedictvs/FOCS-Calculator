@@ -4,7 +4,7 @@ from abstractclasses import solver, solver_model
 
 """
 Matrix multiplcation solves for the distance between two points in 2 or 3
-dimensional space. 
+dimensional space.
 """
 
 # ————————————————————————————————————————————————
@@ -18,8 +18,12 @@ class matrix_multiplication_solver(solver):
             "Please enter the width of the first matrix. (This will also be "
             + "the height of the second matrix.) > "
         )
-        sy0_arg = self.prompt_integer("Please enter the height of the first matrix. > ")
-        sx1_arg = self.prompt_integer("Please enter the width of the second matrix. > ")
+        sy0_arg = self.prompt_integer(
+            "Please enter the height of the first matrix. > "
+        )
+        sx1_arg = self.prompt_integer(
+            "Please enter the width of the second matrix. > "
+        )
         sy1_arg = sx0_arg
 
         mat0 = [[0] * sx0_arg] * sy0_arg
@@ -64,7 +68,9 @@ class matrix_multiplication_model(solver_model):
         mat0 = self.inputs["mat0"]
         mat1 = self.inputs["mat1"]
         self.ans = np.matmul(mat0, mat1)
-        self.work = self.matrix_multiplicationwork(sx0, sy0, sx1, sy1, "", mat0, mat1)
+        self.work = self.matrix_multiplicationwork(
+            sx0, sy0, sx1, sy1, "", mat0, mat1
+        )
 
     def matrix_multiplicationwork(
         self, sx0: int, sy0: int, sx1: int, sy1: int, v: str, mat0=[], mat1=[]

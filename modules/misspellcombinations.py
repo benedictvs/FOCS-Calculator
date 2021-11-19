@@ -84,7 +84,10 @@ class mispell_combinations_model(solver_model):
         steps += "n! / (n-k)!\n"
         steps += "Plug in our value for n (length of the word):\n"
         steps += "{}! / ({}-k)!\n".format(len(n), len(n))
-        steps += "Finally, plug in our value for k the number of letters we want to choose and compute:\n"
+        steps += (
+            "Finally, plug in our value for k the number of letters we want "
+            + "to choose and compute:\n"
+        )
         steps += "{}! / (({}-{})!)\n".format(len(n), len(n), k)
         steps += "={} \n".format(self.misspell(n, k))
         return steps

@@ -4,7 +4,7 @@ from abstractclasses import solver, solver_model
 
 """
 Binomial Coefficient module solves for the number of combinations of k
-elements in a set of n elements. 
+elements in a set of n elements.
 """
 
 # ————————————————————————————————————————————————
@@ -18,7 +18,9 @@ class binomial_coefficient_solver(solver):
             "Please enter the size of the set of elements (n) > ", 1
         )
         k_arg = self.prompt_integer(
-            "Please enter how many elements are chosen from that set (k) > ", 1, n_arg
+            "Please enter how many elements are chosen from that set (k) > ",
+            1,
+            n_arg,
         )
 
         # Set inputs

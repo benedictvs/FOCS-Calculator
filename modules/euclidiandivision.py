@@ -1,7 +1,7 @@
 from abstractclasses import solver, solver_model
 
 """
-The Euclidian Division module performs Euclidian division (division with 
+The Euclidian Division module performs Euclidian division (division with
 remainder) recursively until it finds a greatest common divisor.
 """
 
@@ -52,16 +52,18 @@ class euclidian_division_model(solver_model):
         else:
             if x > y and x % y != 0:
                 v += (
-                    "{} goes into {} {} times, with a remainder of {}. Now perform gcd({}, {})".format(
-                        y, x, x // y, x % y, x % y, y
+                    "{} goes into {} {} times, with a remainder of {}.".format(
+                        y, x, x // y, x % y
                     )
+                    + " Now perform gcd({}, {})".format(x % y, y)
                     + "\n"
                 )
             elif x > y and x % y == 0:
                 v += (
-                    "{} goes into {} {} times, with a remainder of {}. We have arrived at our GCD.".format(
+                    "{} goes into {} {} times, with a remainder of {}.".format(
                         y, x, x // y, x % y
                     )
+                    + " We have arrived at our GCD."
                     + "\n"
                 )
             return self.euclidwork(y, x % y, v)
