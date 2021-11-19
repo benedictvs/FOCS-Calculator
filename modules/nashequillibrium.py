@@ -1,12 +1,13 @@
 from abstractclasses import solver, solver_model
 
 """
-The Nash Equillibrium solver takes a payoff matrix from game theory, then it solves for a nash equillibrium, if one exists. 
+The Nash Equillibrium solver takes a payoff matrix from game theory, 
+then it solves for a nash equillibrium, if one exists. 
 """
 
 
 # ————————————————————————————————————————————————
-# MODULE PROMPTS
+# NASH EQUILLIBRIUM SOLVER CLASS
 # ————————————————————————————————————————————————
 
 
@@ -104,7 +105,11 @@ class nash_equillibrium_solver(solver):
             [(0, 0) for i in range(num_strategies_1)] for j in range(num_strategies_2)
         ]
 
-        print(self.format_payoff_matrix(payoff_matrix, player_1_strategies, player_2_strategies))
+        print(
+            self.format_payoff_matrix(
+                payoff_matrix, player_1_strategies, player_2_strategies
+            )
+        )
         for i in range(num_strategies_2):
             for j in range(num_strategies_1):
                 player_1_payoff = self.prompt_float(
@@ -126,28 +131,36 @@ class nash_equillibrium_solver(solver):
                     + " of the payoff matrix > "
                 )
                 payoff_matrix[i][j] = (player_2_payoff, player_1_payoff)
-                print(self.format_payoff_matrix(
-                    payoff_matrix, player_1_strategies, player_2_strategies
-                ))
+                print(
+                    self.format_payoff_matrix(
+                        payoff_matrix, player_1_strategies, player_2_strategies
+                    )
+                )
 
         # Set inputs
         self.inputs["payoff_matrix"] = payoff_matrix
         self.inputs["player_1_strategies"] = player_1_strategies
         self.inputs["player_2_strategies"] = player_2_strategies
-        self.inputs['format_payoff_matrix'] = self.format_payoff_matrix
+        self.inputs["format_payoff_matrix"] = self.format_payoff_matrix
 
+
+# ————————————————————————————————————————————————
+# NASH EQUILLIBRIUM MODEL CLASS
+# ————————————————————————————————————————————————
 
 class nash_equillibrium_model(solver_model):
     def __init__(self, **inputs) -> None:
         super().__init__(**inputs)
-        self.format_payoff_matrix = self.inputs['format_payoff_matrix']
+        self.format_payoff_matrix = self.inputs["format_payoff_matrix"]
 
     def solve(self) -> None:
         payoff_matrix = self.inputs["payoff_matrix"]
         player_1_strategies = self.inputs["player_1_strategies"]
         player_2_strategies = self.inputs["player_2_strategies"]
 
-        self.ans, self.work = self.nash(payoff_matrix, player_1_strategies, player_2_strategies)
+        self.ans, self.work = self.nash(
+            payoff_matrix, player_1_strategies, player_2_strategies
+        )
 
     def nash(self, payoff_matrix, player_1_strategies, player_2_strategies):
         work = ""
@@ -159,7 +172,11 @@ class nash_equillibrium_model(solver_model):
             is_break = False
             for i in range(len(payoff_matrix)):
                 for j in range(len(payoff_matrix)):
-                    if i != j and i < len(payoff_matrix[0]) and j < len(payoff_matrix[i]):
+                    if (
+                        i != j
+                        and i < len(payoff_matrix[0])
+                        and j < len(payoff_matrix[i])
+                    ):
                         is_greater = False
                         for k in range(len(payoff_matrix[0])):
                             if float(payoff_matrix[i][k][0]) > float(
@@ -192,7 +209,11 @@ class nash_equillibrium_model(solver_model):
             is_break = False
             for i in range(len(payoff_matrix[0])):
                 for j in range(len(payoff_matrix[0])):
-                    if i != j and i < len(payoff_matrix[0]) and j < len(payoff_matrix[i]):
+                    if (
+                        i != j
+                        and i < len(payoff_matrix[0])
+                        and j < len(payoff_matrix[i])
+                    ):
                         is_greater = False
                         for k in range(len(payoff_matrix)):
                             if float(payoff_matrix[k][i][1]) > float(

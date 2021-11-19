@@ -1,5 +1,9 @@
 from abstractclasses import solver, solver_model
 
+"""
+Misspell combinations solves for how many ways one can misspell a word
+"""
+
 # ————————————————————————————————————————————————
 # MISSPELL COMBINATIONS SOLVER CLASS
 # ————————————————————————————————————————————————
