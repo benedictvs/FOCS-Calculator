@@ -1,7 +1,4 @@
-import math as m
 import numpy as np
-
-from questionary import prompt, print
 
 from abstractclasses import solver, solver_model
 
@@ -17,12 +14,12 @@ dimensional space.
 
 class matrix_multiplication_solver(solver):
     def prompt_inputs(self) -> None:
-        sx0_arg = self.prompt_float(
+        sx0_arg = self.prompt_integer(
             "Please enter the width of the first matrix. (This will also be "
             + "the height of the second matrix.) > "
         )
-        sy0_arg = self.prompt_float("Please enter the height of the first matrix. > ")
-        sx1_arg = self.prompt_float("Please enter the width of the second matrix. > ")
+        sy0_arg = self.prompt_integer("Please enter the height of the first matrix. > ")
+        sx1_arg = self.prompt_integer("Please enter the width of the second matrix. > ")
         sy1_arg = sx0_arg
 
         mat0 = [[0] * sx0_arg] * sy0_arg

@@ -1,5 +1,3 @@
-from questionary import print
-
 from abstractclasses import solver, solver_model
 
 

@@ -171,7 +171,6 @@ class voting_systems_model(solver_model):
 
         max_val = max(count.values())
         winners = [key for key, val in count.items() if val == max_val]
-        print(work)
         return count, winners, work
 
     def plurality(self) -> tuple:
