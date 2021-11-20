@@ -63,10 +63,11 @@ class solver(ABC):
         self.prompt_outputs()
 
     def prompt_outputs(self) -> None:
-        print("\nYour answers:\n{}".format(self.ans),
-              style="bold italic fg:yellow")
-        print("Work:\n{}".format(self.work),
-              style="bold italic fg:yellow")
+        print(
+            "\nYour answers:\n{}".format(self.ans),
+            style="bold italic fg:yellow",
+        )
+        print("Work:\n{}".format(self.work), style="bold italic fg:yellow")
         input("\nPlease hit enter when you are finished.")
 
     @abstractmethod
@@ -80,8 +81,11 @@ class solver(ABC):
         pass
 
     def prompt_integer(
-            self, message_text: str, lower_bound: int = None,
-            upper_bound: int = None) -> int:
+        self,
+        message_text: str,
+        lower_bound: int = None,
+        upper_bound: int = None,
+    ) -> int:
         """
         Helper function to prompt for integer
 
@@ -137,13 +141,16 @@ class solver(ABC):
         """
         try:
             float(a)
-        except(ValueError):
+        except (ValueError):
             return False
         return True
 
     def prompt_float(
-            self, message_text: str, lower_bound: int = None,
-            upper_bound: int = None) -> float:
+        self,
+        message_text: str,
+        lower_bound: int = None,
+        upper_bound: int = None,
+    ) -> float:
         """
         Helper function to prompt for float
 
@@ -158,8 +165,12 @@ class solver(ABC):
                 "name": "float",
                 "message": message_text,
                 "validate": lambda val: self.is_float(val)
-                and (True if lower_bound is None else float(val) >= lower_bound)
-                and (True if upper_bound is None else float(val) <= upper_bound),
+                and (
+                    True if lower_bound is None else float(val) >= lower_bound
+                )
+                and (
+                    True if upper_bound is None else float(val) <= upper_bound
+                ),
             },
         ]
         return float(prompt(questions)["float"])
@@ -192,8 +203,9 @@ class solver(ABC):
             )["float"]
         )
 
-    def prompt_string(self, message_text: str, validate: Callable = None,
-                      *args) -> str:
+    def prompt_string(
+        self, message_text: str, validate: Callable = None, *args
+    ) -> str:
         """
         Helper function to prompt for string
 
