@@ -108,3 +108,114 @@ class logic_gate_solver(solver_model):
 
 
 
+
+# main() provides some unit testing 
+def main():
+
+  #Unit test for NOT gate:
+   #      _
+   #  A | A
+   # ---|---
+   #  0 | 1
+   #  1 | 0
+   #
+    print("===== Unit test for not_gate =====\n")
+    print("not_gate( A ) | RESULT\n")
+    print("--------------|-------\n")  
+    for A in range(2):
+        print("not_gate( ",A," ) | ",not_gate(A),"\n")
+  
+
+  # Unit test for OR gate:
+    print("\n===== Unit test for or_gate =====\n")
+    print("or_gate( A, B ) | RESULT\n")
+    print("----------------|-------\n")
+    for A in range(2):
+        for B in range(2):
+            print("or_gate( ",A,", ",B," ) | ", or_gate( A, B ),"\n")
+
+  
+  # Unit test for AND gate:
+    print( "\n===== Unit test for and_gate =====\n" )
+    print( "and_gate( A, B ) | RESULT\n" )
+    print( "-----------------|-------\n" )
+    for A in range(2):
+        for B in range(2):
+            print("and_gate( ",A,", ",B," ) | ",and_gate(A, B),"\n")
+
+
+  # Unit test for XOR gate:
+    print( "\n===== Unit test for xor_gate =====\n" )
+    print( "xor_gate( A, B ) | RESULT\n" )
+    print( "-----------------|-------\n" )
+    for A in range(2):
+        for B in range(2):
+            print("xor_gate( ",A,", ",B," ) | ",xor_gate(A, B),"\n" )
+
+
+  # Unit test for 2-input decoder:
+    print( "\n===== Unit test for 2-input decoder =====\n" )
+    print( "decoder( I0, I1 ) | ( O0, O1, O2, O3 )\n" )
+    print( "------------------|-------------------\n" )
+    O0, O1, O2, O3 = 0
+    for I0 in range(2):
+        for I1 in range(2):
+            decoder2(I0, I1, O0, O1, O2, O3)
+            print("decoder( ",I0,", ",I1," ) | ( ",O0,", ",O1,", ",O2,", ",O3," )\n")
+      
+  
+  
+  # Unit test for 2-input multiplexer
+    print( "\n===== Unit test for 2-input multiplexor =====\n" )
+    print( "multiplexor( S ) | ( I0, I1 ) | RESULT\n" )
+    print( "-----------------|------------|-------\n" )
+    for S in range(2):
+        for I0 in range(2):
+            for I1 in range(2):
+                print("multiplexer( ",S," ) | ( ",I0,", ",I1," ) | ",multiplexor2(S, I0, I1),"\n")
+     
+                  
+  # Unit test for 4-input multiplexer
+    print("\n===== Unit test for 4-input multiplexor =====\n" )
+    print("multiplexor( S0, S1 ) | ( I0, I1, I2, I3 ) | RESULT\n")
+    print("----------------------|--------------------|-------\n")
+    for S0 in range(2):
+        for S1 in range(2):
+            for I0 in range(2):
+                for I1 in range(2):
+                    for I2 in range(2):
+                        for I3 in range(2):
+                            print( "multiplexer( ",S0,", ",S1," ) | ( ",I0,", ",I1,", "I2", ",I3," ) | ",multiplexor4(S0, S1, I0, I1, I2, I3),"\n")
+
+
+  # Unit test for 1-bit adder:
+    print( "\n===== Unit test for 1-bit adder =====\n" )
+    print( "adder( A, B, CI ) | ( CO, Sum )\n" )
+    print( "------------------|------------\n" )
+    CarryOut, Sum = 0
+    for A in range(2):
+        for B in range(2):
+            for CarryIn in range(2):
+                adder(A, B, CarryIn, CarryOut, Sum)
+                print("adder( ",A,", ",B,", ",CarryIn," ) | ( ",CarryOut,", ",Sum," )\n")
+        
+    
+    
+  # Unit test for 1-bit ALU
+    print("\n===== Unit test for 1-Bit ALU =====\n")
+    print("ALU( A, B ) | ( Bi, CI, Op0, Op1 ) | ( Re, CO )\n" )
+    print("------------|----------------------|-----------\n" )
+    Result = 0
+    for A in range(2):
+        for B in range(2):
+            for Binvert in range(2):
+                for CarryIn in range(2):
+                    for Op0 in range(2):
+                        for Op1 in range(2):
+                            ALU(A, B, Binvert, CarryIn, Op0, Op1, Result, CarryOut)
+                            print( "ALU( %d, %d ) | ( %2d, %2d, %3d, %3d ) | ( %2d, %2d )\n", A, B, Binvert, CarryIn, Op0, Op1, Result, CarryOut)
+            
+
+    return 0
+
+
