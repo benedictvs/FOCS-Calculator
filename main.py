@@ -155,6 +155,6 @@ _main = main(
     matrix_multiplication,
     misspell_combinations,
     nash_equillibrium,
-    # conditional_probability,
+    conditional_probability,
 )
 _main()
