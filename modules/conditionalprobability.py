@@ -13,6 +13,7 @@ class conditional_probability_solver(solver):
                 + " following > ",
                 choices,
             )
+            choices.remove(choice)
             prob = self.prompt_float(
                 "Enter the probabilty (0.0 - 1.0) > ", 0.0, 1.0
             )
@@ -40,11 +41,61 @@ class conditional_probability_model(solver_model):
             1 - probabilities[new_probabilities[0]]
         )
         work += new_probabilities[2]
-        work += "= 1 - {} = {}".format(
+        work += " = 1 - {} = {}\n".format(
             new_probabilities[0], probabilities[new_probabilities[2]]
         )
-        probabilities["Probability of not B"] = (
-            1 - probabilities["Probability of B"]
+
+        probabilities[new_probabilities[3]] = (
+            1 - probabilities[new_probabilities[1]]
+        )
+        work += new_probabilities[2]
+        work += " = 1 - {} = {}\n".format(
+            new_probabilities[1], probabilities[new_probabilities[3]]
+        )
+
+        probabilities[new_probabilities[4]] = (
+            probabilities[new_probabilities[0]]
+            * probabilities[new_probabilities[1]]
+        )
+        work += new_probabilities[4]
+        work += " = {} * {} = {}\n".format(
+            new_probabilities[0],
+            new_probabilities[1],
+            probabilities[new_probabilities[4]],
+        )
+
+        probabilities[new_probabilities[5]] = (
+            probabilities[new_probabilities[0]]
+            + probabilities[new_probabilities[1]]
+            - probabilities[new_probabilities[4]]
+        )
+        work += new_probabilities[5]
+        work += " = {} + {} - {} = {}\n".format(
+            new_probabilities[0],
+            new_probabilities[1],
+            new_probabilities[4],
+            probabilities[new_probabilities[5]],
+        )
+
+        probabilities[new_probabilities[6]] = (
+            probabilities[new_probabilities[0]]
+            + probabilities[new_probabilities[1]]
+            - (2 * probabilities[new_probabilities[4]])
+        )
+        work += new_probabilities[6]
+        work += " = {} + {} - 2({}) = {}\n".format(
+            new_probabilities[0],
+            new_probabilities[1],
+            new_probabilities[4],
+            probabilities[new_probabilities[6]],
+        )
+
+        probabilities[new_probabilities[7]] = (
+            1 - probabilities[new_probabilities[5]]
+        )
+        work += new_probabilities[7]
+        work += " = 1 - {} = {}\n".format(
+            new_probabilities[5], probabilities[new_probabilities[7]]
         )
 
         ans = ""
@@ -52,3 +103,6 @@ class conditional_probability_model(solver_model):
             ans += "{} = {}\n".format(
                 new_probabilities[i], probabilities[new_probabilities[i]]
             )
+
+        self.ans = ans
+        self.work = work
