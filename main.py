@@ -37,6 +37,7 @@ from modules.conditionalprobability import (
 
 from modules.logicgate import logic_gate_solver, logic_gate_model
 
+from modules.modulararithmetic import modular_arithmetic_solver, modular_arithmetic_model
 # ————————————————————————————————————————————————
 # MAIN CLASS
 # ————————————————————————————————————————————————
@@ -149,6 +150,8 @@ conditional_probability = conditional_probability_solver(
 )
 logic_gate = logic_gate_solver(name="Logic Gates", model=logic_gate_model)
 
+modular_arithmetic = modular_arithmetic_solver(name="Modular Artithmetic", model=modular_arithmetic_model)
+
 _main = main(
     voting,
     binomial_coefficient,
@@ -160,5 +163,6 @@ _main = main(
     nash_equillibrium,
     conditional_probability,
     logic_gate,
+    modular_arithmetic,
 )
 _main()
