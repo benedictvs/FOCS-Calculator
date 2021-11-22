@@ -37,11 +37,11 @@ class matrix_multiplication_solver(solver):
                     + " of the first matrix.\n"
                 )
 
-        for x in range(sx1_arg):
-            for y in range(sy1_arg):
-                mat0[y][x] = self.prompt_float(
-                    "Enter the value at {}".format(x)
-                    + ", {}".format(y)
+        for i in range(sx1_arg):
+            for j in range(sy1_arg):
+                mat1[j][i] = self.prompt_float(
+                    "Enter the value at {}".format(i)
+                    + ", {}".format(j)
                     + " of the second matrix.\n"
                 )
 
@@ -75,6 +75,9 @@ class matrix_multiplication_model(solver_model):
     def matrix_multiplicationwork(
         self, sx0: int, sy0: int, sx1: int, sy1: int, v: str, mat0=[], mat1=[]
     ) -> str:
+        v += "with matrices of size {}".format(sx0) + ", {}".format(sy0) + "\n";
+        v += "and size {}".format(sx1) + ", {}".format(sy1) + "\n";
+        v += "our resulting matrix will be size: {}".format(sx1) + ", {}".format(sy0) + "\n"
         v += "multiplying {}.".format(mat0) + "\n"
         v += "with {}.".format(mat1) + "\n"
         v += "We get the " + "answer: {}".format(np.matmul(mat0, mat1)) + "\n"
