@@ -37,6 +37,11 @@ from modules.conditionalprobability import (
 
 from modules.logicgate import logic_gate_solver, logic_gate_model
 
+from modules.lambdacalculus import (
+    lambda_calculus_solver,
+    lambda_calculus_model,
+)
+
 # ————————————————————————————————————————————————
 # MAIN CLASS
 # ————————————————————————————————————————————————
@@ -148,6 +153,9 @@ conditional_probability = conditional_probability_solver(
     name="Conditional Probability", model=conditional_probability_model
 )
 logic_gate = logic_gate_solver(name="Logic Gates", model=logic_gate_model)
+lambda_calculus = lambda_calculus_solver(
+    name="Lambda Calculus", model=lambda_calculus_model
+)
 
 _main = main(
     voting,
@@ -160,5 +168,6 @@ _main = main(
     nash_equillibrium,
     conditional_probability,
     logic_gate,
+    lambda_calculus,
 )
 _main()
