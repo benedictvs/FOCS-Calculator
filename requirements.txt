@@ -1,4 +1,5 @@
 black==21.11b1
 flake8==4.0.1
+lark==1.0.0
 numpy==1.21.4
 questionary==1.10.0

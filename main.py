@@ -34,10 +34,16 @@ from modules.conditionalprobability import (
     conditional_probability_solver,
     conditional_probability_model,
 )
-
 from modules.logicgate import logic_gate_solver, logic_gate_model
+from modules.modulararithmetic import (
+    modular_arithmetic_solver,
+    modular_arithmetic_model,
+)
+from modules.lambdacalculus import (
+    lambda_calculus_solver,
+    lambda_calculus_model,
+)
 
-from modules.modulararithmetic import modular_arithmetic_solver, modular_arithmetic_model
 # ————————————————————————————————————————————————
 # MAIN CLASS
 # ————————————————————————————————————————————————
@@ -149,8 +155,13 @@ conditional_probability = conditional_probability_solver(
     name="Conditional Probability", model=conditional_probability_model
 )
 logic_gate = logic_gate_solver(name="Logic Gates", model=logic_gate_model)
+lambda_calculus = lambda_calculus_solver(
+    name="Lambda Calculus", model=lambda_calculus_model
+)
 
-modular_arithmetic = modular_arithmetic_solver(name="Modular Artithmetic", model=modular_arithmetic_model)
+modular_arithmetic = modular_arithmetic_solver(
+    name="Modular Artithmetic", model=modular_arithmetic_model
+)
 
 _main = main(
     voting,
@@ -164,5 +175,6 @@ _main = main(
     conditional_probability,
     logic_gate,
     modular_arithmetic,
+    lambda_calculus,
 )
 _main()
