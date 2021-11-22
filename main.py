@@ -35,6 +35,8 @@ from modules.conditionalprobability import (
     conditional_probability_model,
 )
 
+from modules.logicgate import logic_gate_solver, logic_gate_model
+
 # ————————————————————————————————————————————————
 # MAIN CLASS
 # ————————————————————————————————————————————————
@@ -145,6 +147,7 @@ nash_equillibrium = nash_equillibrium_solver(
 conditional_probability = conditional_probability_solver(
     name="Conditional Probability", model=conditional_probability_model
 )
+logic_gate = logic_gate_solver(name="Logic Gates", model=logic_gate_model)
 
 _main = main(
     voting,
@@ -156,5 +159,6 @@ _main = main(
     misspell_combinations,
     nash_equillibrium,
     conditional_probability,
+    logic_gate,
 )
 _main()

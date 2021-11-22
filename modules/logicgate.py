@@ -9,11 +9,14 @@ and shows work
 class logic_gate_solver(solver):
     def prompt_inputs(self) -> None:
         a_arg = self.prompt_integer(
-            "Please enter 0 or 1 for the value of A > "
+            "Please enter 0 or 1 for the value of A > ", 0, 1
         )
-        b_arg = self.prompt_integer("Please enter 0 or 1 for value of B > ")
-        e_arg = self.prompt_string(
-            "Please specify not_gate, and_gate, or_gate, or xor_gate"
+        b_arg = self.prompt_integer(
+            "Please enter 0 or 1 for value of B > ", 0, 1
+        )
+        choices = ["not_gate", "and_gate", "or_gates", "xor_gate"]
+        e_arg = self.prompt_choices(
+            "Please specify not_gate, and_gate, or_gate, or xor_gate", choices
         )
 
         # Set inputs
@@ -30,7 +33,7 @@ class logic_gate_model(solver_model):
         a = self.inputs["a_arg"]
         b = self.inputs["b_arg"]
         e = self.inputs["e_arg"]
-        self.ans = self.logic(a, b, e)
+        self.ans = str(self.logic(a, b, e))
         self.work = self.logicwork(a, b, e)
 
     # Function Calls
