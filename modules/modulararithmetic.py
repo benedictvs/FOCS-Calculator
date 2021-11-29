@@ -15,19 +15,14 @@ Roman Numeral module takes a valid Roman numeral and translates it to base 10
 class modular_arithmetic_solver(solver):
     def prompt_inputs(self) -> None:
 
-        base = self.prompt_integer(
-            "Please enter the base > "
-        )
-        exponent = self.prompt_integer(
-            "Please enter the exponent > "
-        )
-        mod = self.prompt_integer(
-            "Please enter the mod > "
-        )
+        base = self.prompt_integer("Please enter the base > ")
+        exponent = self.prompt_integer("Please enter the exponent > ")
+        mod = self.prompt_integer("Please enter the mod > ")
 
         self.inputs["base"] = base
         self.inputs["exponent"] = exponent
         self.inputs["mod"] = mod
+
 
 # ————————————————————————————————————————————————
 # MODULAR ARITHMETIC MODEL CLASS
@@ -45,34 +40,43 @@ class modular_arithmetic_model(solver_model):
     def modular(self, base: int, exponent: int, mod: int) -> int:
         binexp = bin(exponent).replace("0b", "")
         powlist = list(binexp)
-        for i in range(0,len(powlist)):
+        for i in range(0, len(powlist)):
             powlist[i] = int(powlist[i])
 
         currentmod = 1
-        for i in range(0,len(powlist)):
-            c = i+1
-            multmod = (currentmod**2) * (2**powlist[i])
+        for i in range(0, len(powlist)):
+            c = i + 1
+            multmod = (currentmod ** 2) * (2 ** powlist[i])
             newmod = multmod % mod
             currentmod = newmod
-        return multmod%mod
+        return multmod % mod
 
     def modularwork(self, base: int, exponent: int, mod: int) -> str:
         binexp = bin(exponent).replace("0b", "")
         powlist = list(binexp)
-        for i in range(0,len(powlist)):
+        for i in range(0, len(powlist)):
             powlist[i] = int(powlist[i])
         calculations = []
         currentmod = 1
-        for i in range(0,len(powlist)):
-            c = i+1
-            multmod = (currentmod**2) * (2**powlist[i])
+        for i in range(0, len(powlist)):
+            c = i + 1
+            multmod = (currentmod ** 2) * (2 ** powlist[i])
             newmod = multmod % mod
-            mathstr = 'c({}) ≡ {}^2 * 2^{} = {} * {} = {}mod{} = {}'.format(c, currentmod, powlist[i], currentmod**2, 2**powlist[i], multmod, mod, newmod)
+            mathstr = "c({}) ≡ {}^2 * 2^{} = {} * {} = {}mod{} = {}".format(
+                c,
+                currentmod,
+                powlist[i],
+                currentmod ** 2,
+                2 ** powlist[i],
+                multmod,
+                mod,
+                newmod,
+            )
             currentmod = newmod
             calculations.append(mathstr)
 
-        v = 'Convert {} to binary: {}\n'.format(exponent, binexp)
-        for i in range(0,len(calculations)):
-            v += '{}\t|\t{}'.format(powlist[i], calculations[i]) + '\n'
-        v += 'You are left with remainder {}'.format(multmod%mod)
+        v = "Convert {} to binary: {}\n".format(exponent, binexp)
+        for i in range(0, len(calculations)):
+            v += "{}\t|\t{}".format(powlist[i], calculations[i]) + "\n"
+        v += "You are left with remainder {}".format(multmod % mod)
         return v
