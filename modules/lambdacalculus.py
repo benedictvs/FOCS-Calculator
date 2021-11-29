@@ -37,7 +37,6 @@ class lambda_calculus_solver(solver):
             "Enter a valid lambda calculus expression > ", validate
         )
         expr = self.convert_lambda(expr)
-        print(expr)
         self.inputs["expr"] = expr
 
 
