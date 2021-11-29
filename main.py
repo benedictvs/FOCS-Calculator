@@ -44,11 +44,6 @@ from modules.lambdacalculus import (
     lambda_calculus_model,
 )
 
-from modules.lambdacalculus import (
-    lambda_calculus_solver,
-    lambda_calculus_model,
-)
-
 # ————————————————————————————————————————————————
 # MAIN CLASS
 # ————————————————————————————————————————————————
@@ -163,13 +158,9 @@ logic_gate = logic_gate_solver(name="Logic Gates", model=logic_gate_model)
 lambda_calculus = lambda_calculus_solver(
     name="Lambda Calculus", model=lambda_calculus_model
 )
-<<<<<<< HEAD
-
 modular_arithmetic = modular_arithmetic_solver(
     name="Modular Artithmetic", model=modular_arithmetic_model
 )
-=======
->>>>>>> 553de39c25b7073b3b887e52a8ab156072f95c21
 
 _main = main(
     voting,
@@ -182,10 +173,7 @@ _main = main(
     nash_equillibrium,
     conditional_probability,
     logic_gate,
-<<<<<<< HEAD
     modular_arithmetic,
-=======
->>>>>>> 553de39c25b7073b3b887e52a8ab156072f95c21
     lambda_calculus,
 )
 _main()
