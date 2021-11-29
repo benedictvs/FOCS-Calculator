@@ -27,3 +27,6 @@ To create a new module, do the following:
 Follow Python's PEP8 standard found [here](https://www.python.org/dev/peps/pep-0008/)
 Used python formatter black to format most of code, found [here](https://pypi.org/project/black/)
 Used python linter flake8 to lint all of the codebase, foun [here](https://pypi.org/project/flake8/)
+
+## Attributions
+This project makes use of code from the pylambdac python lambda calculus interpreter to power the lambda calculus module. This code is licensed using the Apache License 2.0. The proper attributions are present on each file, as ATTRIBUTIONS.md
