@@ -226,7 +226,9 @@ class solver(ABC):
         return str(
             prompt(
                 questions,
-                validate=lambda val: (validate(val, args) if validate else True),
+                validate=lambda val: (
+                    validate(val, args) if validate else True
+                ),
             )["string"]
         )
 

@@ -5,6 +5,10 @@ Logic Gate module implement several kinds of logic gates, takes inputs
 and shows work
 """
 
+# ————————————————————————————————————————————————
+# LOGIC GATE SOLVER CLASS
+# ————————————————————————————————————————————————
+
 
 class logic_gate_solver(solver):
     def prompt_inputs(self) -> None:
@@ -25,6 +29,11 @@ class logic_gate_solver(solver):
         self.inputs["e_arg"] = e_arg
 
 
+# ————————————————————————————————————————————————
+# LOGIC GATE MODEL CLASS
+# ————————————————————————————————————————————————
+
+
 class logic_gate_model(solver_model):
     def solve(self) -> None:
         """
@@ -36,7 +45,6 @@ class logic_gate_model(solver_model):
         self.ans = str(self.logic(a, b, e))
         self.work = self.logicwork(a, b, e)
 
-    # Function Calls
     def logic(self, a: int, b: int, e: str) -> int:
         if e == "not_gate":
             if a:
@@ -44,7 +52,6 @@ class logic_gate_model(solver_model):
             else:
                 return 1
         if e == "or_gate":
-            # TODO: implement logical OR
             if a:
                 return 1
             if b:
@@ -52,14 +59,12 @@ class logic_gate_model(solver_model):
             else:
                 return 0
         if e == "and_gate":
-            # TODO: implement logical AND
             if a:
                 if b:
                     return 1
             else:
                 return 0
         if e == "xor_gate":
-            # TODO: implement logical XOR
             if a ^ b:
                 return 1
             else:
