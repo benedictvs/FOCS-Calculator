@@ -3,7 +3,8 @@ from pylambdac import parse
 from abstractclasses import solver, solver_model
 
 """
-lambdacalculus takes a lambda calculus expression and reduces it to weak head normal form
+lambdacalculus takes a lambda calculus expression and reduces it to weak head
+normal form
 """
 
 # ————————————————————————————————————————————————
@@ -56,7 +57,9 @@ class lambda_calculus_model(solver_model):
                 "lambda calculus expression already in weak head normal form"
             )
         else:
-            self.work = "Steps to reduce:\n" + "{:d}. ".format(it) + expr + "\n"
+            self.work = (
+                "Steps to reduce:\n" + "{:d}. ".format(it) + expr + "\n"
+            )
             for ex in work:
                 it += 1
                 self.work += "{:d}. ".format(it) + str(ex) + "\n"
