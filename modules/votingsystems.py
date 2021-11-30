@@ -326,7 +326,7 @@ class voting_systems_model(solver_model):
             for candidate in key:
                 if candidate not in runoff_winners:
                     index = new_key.index(candidate)
-                    new_key = new_key[:index] + new_key[index + 1 :]
+                    new_key = new_key[:index] + new_key[index + 1:]
             print(str(key), str(new_key))
             try:
                 votes[new_key] += val
