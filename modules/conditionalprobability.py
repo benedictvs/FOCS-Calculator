@@ -1,4 +1,5 @@
 from abstractclasses import solver, solver_model
+from decimal import Decimal
 
 
 class conditional_probability_solver(solver):
@@ -6,7 +7,7 @@ class conditional_probability_solver(solver):
         choices = ["Probability of A", "Probability of B"]
         probabilities = dict()
         for c in choices:
-            probabilities[c] = 0.0
+            probabilities[c] = Decimal(0.0)
         for _ in range(2):
             choice = self.prompt_choices(
                 "Given two events A and B enter the probability for one of the"
@@ -17,7 +18,7 @@ class conditional_probability_solver(solver):
             prob = self.prompt_float(
                 "Enter the probabilty (0.0 - 1.0) > ", 0.0, 1.0
             )
-            probabilities[choice] = prob
+            probabilities[choice] = Decimal(prob)
 
         # set inputs
         self.inputs["probabilities"] = probabilities
@@ -37,71 +38,73 @@ class conditional_probability_model(solver_model):
             "Probability of not A and Not B",  # 7
         ]
         probabilities = self.inputs["probabilities"]
-        probabilities[new_probabilities[2]] = (
-            1 - probabilities[new_probabilities[0]]
+        probabilities[new_probabilities[2]] = Decimal(
+            1 - Decimal(probabilities[new_probabilities[0]])
         )
+        probabilities[new_probabilities[3]] = Decimal(
+            1 - Decimal(probabilities[new_probabilities[1]])
+        )
+        probabilities[new_probabilities[4]] = Decimal(
+            Decimal(probabilities[new_probabilities[0]])
+            * Decimal(probabilities[new_probabilities[1]])
+        )
+        probabilities[new_probabilities[5]] = Decimal(
+            Decimal(probabilities[new_probabilities[0]])
+            + Decimal(probabilities[new_probabilities[1]])
+            - Decimal(probabilities[new_probabilities[4]])
+        )
+        probabilities[new_probabilities[6]] = Decimal(
+            Decimal(probabilities[new_probabilities[0]])
+            + Decimal(probabilities[new_probabilities[1]])
+            - (2 * Decimal(probabilities[new_probabilities[4]]))
+        )
+        probabilities[new_probabilities[7]] = Decimal(
+            1 - Decimal(probabilities[new_probabilities[5]])
+        )
+
         work += new_probabilities[2]
-        work += " = 1 - {} = {}\n".format(
+        work += " = 1 - {} = {:.4f}\n".format(
             new_probabilities[0], probabilities[new_probabilities[2]]
         )
 
-        probabilities[new_probabilities[3]] = (
-            1 - probabilities[new_probabilities[1]]
-        )
         work += new_probabilities[2]
-        work += " = 1 - {} = {}\n".format(
+        work += " = 1 - {} = {:.4f}\n".format(
             new_probabilities[1], probabilities[new_probabilities[3]]
         )
 
-        probabilities[new_probabilities[4]] = (
-            probabilities[new_probabilities[0]]
-            * probabilities[new_probabilities[1]]
-        )
         work += new_probabilities[4]
-        work += " = {} * {} = {}\n".format(
+        work += " = {} * {} = {:.4f}\n".format(
             new_probabilities[0],
             new_probabilities[1],
             probabilities[new_probabilities[4]],
         )
 
-        probabilities[new_probabilities[5]] = (
-            probabilities[new_probabilities[0]]
-            + probabilities[new_probabilities[1]]
-            - probabilities[new_probabilities[4]]
-        )
         work += new_probabilities[5]
-        work += " = {} + {} - {} = {}\n".format(
+        work += " = {} + {} - {} = {:.4f}\n".format(
             new_probabilities[0],
             new_probabilities[1],
             new_probabilities[4],
             probabilities[new_probabilities[5]],
         )
 
-        probabilities[new_probabilities[6]] = (
-            probabilities[new_probabilities[0]]
-            + probabilities[new_probabilities[1]]
-            - (2 * probabilities[new_probabilities[4]])
-        )
         work += new_probabilities[6]
-        work += " = {} + {} - 2({}) = {}\n".format(
+        work += " = {} + {} - 2({}) = {:.4f}\n".format(
             new_probabilities[0],
             new_probabilities[1],
             new_probabilities[4],
             probabilities[new_probabilities[6]],
         )
 
-        probabilities[new_probabilities[7]] = (
-            1 - probabilities[new_probabilities[5]]
-        )
         work += new_probabilities[7]
-        work += " = 1 - {} = {}\n".format(
-            new_probabilities[5], probabilities[new_probabilities[7]]
+        work += " = 1 - {} = {:.4f}\n".format(
+            new_probabilities[5], Decimal(probabilities[new_probabilities[7]])
         )
 
         ans = ""
         for i in range(len(new_probabilities)):
-            ans += "{} = {}\n".format(
-                new_probabilities[i], probabilities[new_probabilities[i]]
+            ans += "{} = {:.4f}\n".format(
+                new_probabilities[i],
+                Decimal(probabilities[new_probabilities[i]]),
             )
 
         self.ans = ans
