@@ -105,6 +105,13 @@ class voting_systems_model(solver_model):
         ans += "\nBorda: \n"
         ans += self.str_ans(count_borda, winners_borda)
         work += work_borda
+        # ————————————————————————————————————————————————
+        # VETO
+        # ————————————————————————————————————————————————
+        count_veto, winners_veto, work_veto = self.veto()
+        ans += "\nBorda: \n"
+        ans += self.str_ans(count_veto, winners_veto)
+        work += work_veto
 
         # Setting outputs
         self.ans = ans
@@ -219,6 +226,56 @@ class voting_systems_model(solver_model):
             )
             count[v[0]] += self.votes[v]
             work += " = " + str(count[v[0]])
+
+        work += "\n"
+        for c in self.candidates:
+            work += "\n" + str(c) + " = " + str(count[c])
+
+        max_val = max(count.values())
+        winners = [key for key, val in count.items() if val == max_val]
+        return count, winners, work
+
+    def veto(self) -> tuple:
+        work = (
+            "\nVeto Voting: The lowest ranked candidate gets 0 points. "
+            + "All other candidates get 1 point. "
+        )
+        work += "\nP = "
+        count = self.count.copy()
+
+        n = len(self.candidates) - 1
+
+        votes_keys = [*self.votes.keys()]
+        work += (
+            str(self.votes[votes_keys[0]])
+            + "@["
+            + " > ".join(votes_keys[0])
+            + "]"
+        )
+        for i in range(1, len(votes_keys)):
+            work += (
+                " + "
+                + str(self.votes[votes_keys[i]])
+                + "@["
+                + " > ".join(votes_keys[i])
+                + "]"
+            )
+
+        for v in self.votes:
+            work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
+            for i in range(n + 1):
+                score = min(1, max(n - i, 0)) * self.votes[v]
+                work += "\n" + str(v[i]) + " = "
+                work += (
+                    str(count[v[i]])
+                    + " + "
+                    + str(min(1, max(n - i, 0)))
+                    + " * "
+                    + str(self.votes[v])
+                    + " = "
+                    + str(score + count[v[i]])
+                )
+                count[v[i]] += score
 
         work += "\n"
         for c in self.candidates:

@@ -1,6 +1,11 @@
 from abstractclasses import solver, solver_model
 from decimal import Decimal
 
+"""
+Conditional Probability takes the probability of two events, and calculates 
+the probability of other events that are affected by those two events
+"""
+
 
 class conditional_probability_solver(solver):
     def prompt_inputs(self) -> None:
