@@ -2,7 +2,7 @@ from abstractclasses import solver, solver_model
 from decimal import Decimal
 
 """
-Conditional Probability takes the probability of two events, and calculates 
+Conditional Probability takes the probability of two events, and calculates
 the probability of other events that are affected by those two events
 """
 

@@ -96,33 +96,42 @@ class voting_systems_model(solver_model):
         # ————————————————————————————————————————————————
         count_plurality, winners_plurality, work_plurality = self.plurality()
         ans += "Plurality: \n"
-        ans += self.str_ans(count_plurality, winners_plurality)
+        ans += self.str_ans(
+            self.candidates, count_plurality, winners_plurality
+        )
         work += work_plurality
         # ————————————————————————————————————————————————
         # BORDA
         # ————————————————————————————————————————————————
         count_borda, winners_borda, work_borda = self.borda()
         ans += "\nBorda: \n"
-        ans += self.str_ans(count_borda, winners_borda)
+        ans += self.str_ans(self.candidates, count_borda, winners_borda)
         work += work_borda
         # ————————————————————————————————————————————————
         # VETO
         # ————————————————————————————————————————————————
         count_veto, winners_veto, work_veto = self.veto()
-        ans += "\nBorda: \n"
-        ans += self.str_ans(count_veto, winners_veto)
+        ans += "\nVeto: \n"
+        ans += self.str_ans(self.candidates, count_veto, winners_veto)
         work += work_veto
+        # ————————————————————————————————————————————————
+        # PLURALITY WITH RUNOFF
+        # ————————————————————————————————————————————————
+        count_runoff, winners_runoff, work_runoff = self.plurality_runoff()
+        ans += "\nPlurality with Runoff: \n"
+        ans += self.str_ans(self.candidates, count_runoff, winners_runoff)
+        work += work_runoff
 
         # Setting outputs
         self.ans = ans
         self.work = work
 
-    def str_ans(self, count: list, winners: list) -> str:
+    def str_ans(self, candidates: list, count: list, winners: list) -> str:
         """
         Convert the answer to string
         """
         ret = ""
-        for c in self.candidates:
+        for c in candidates:
             ret += "\t" + str(c) + ": " + str(count[c]) + "\n"
         if len(winners) == 1:
             ret += "\tWinner: " + winners[0]
@@ -235,9 +244,153 @@ class voting_systems_model(solver_model):
         winners = [key for key, val in count.items() if val == max_val]
         return count, winners, work
 
-    def veto(self) -> tuple:
+    def plurality_runoff(self) -> tuple:
+        """
+        calculates the winners, the count of how many points candidates got,
+        and the work needed to get those answers under Plurality voting with
+        runoff
+        """
         work = (
-            "\nVeto Voting: The lowest ranked candidate gets 0 points. "
+            "\n\nPlurality with Runoff: The highest ranked candidate gets 1 "
+            + "point; all other candidates get 0 points."
+        )
+        work += "\nP = "
+        count = self.count.copy()
+
+        votes_keys = [*self.votes.keys()]
+        work += (
+            str(self.votes[votes_keys[0]])
+            + "@["
+            + " > ".join(votes_keys[0])
+            + "]"
+        )
+        for i in range(1, len(votes_keys)):
+            work += (
+                " + "
+                + str(self.votes[votes_keys[i]])
+                + "@["
+                + " > ".join(votes_keys[i])
+                + "]"
+            )
+
+        for v in self.votes:
+            work += "\n\n" + str(self.votes[v]) + "@[" + " > ".join(v) + "]"
+            work += (
+                "\n"
+                + str(v[0])
+                + " = "
+                + str(count[v[0]])
+                + " + "
+                + str(self.votes[v])
+            )
+            count[v[0]] += self.votes[v]
+            work += " = " + str(count[v[0]])
+
+        work += "\n"
+        for c in self.candidates:
+            work += "\n" + str(c) + " = " + str(count[c])
+
+        second_max_val = 0
+        max_val = 0
+        for val in count.values():
+            if val > second_max_val:
+                if val > max_val:
+                    second_max_val = max_val
+                    max_val = val
+                else:
+                    second_max_val = val
+
+        runoff_winners = [
+            key for key, val in count.items() if val >= second_max_val
+        ]
+
+        work += (
+            "\n\nNow there are {} candidates with the top two scores. ".format(
+                len(runoff_winners)
+            )
+        )
+        work += "Those candidates are:"
+
+        runoff_count = dict()
+        for i in range(len(runoff_winners)):
+            if i == len(runoff_winners) - 1:
+                work += " and {}.".format(runoff_winners[i])
+            else:
+                work += " {}".format(runoff_winners[i])
+            runoff_count[runoff_winners[i]] = 0
+        count = runoff_count.copy()
+        votes = dict()
+
+        for key, val in self.votes.items():
+            new_key = key
+            for candidate in key:
+                if candidate not in runoff_winners:
+                    index = new_key.index(candidate)
+                    new_key = new_key[:index] + new_key[index + 1 :]
+            print(str(key), str(new_key))
+            try:
+                votes[new_key] += val
+            except KeyError:
+                votes[new_key] = val
+
+        print(str(self.votes))
+        print(str(votes))
+
+        work += (
+            "\nNow elminate all other candidates and do plurality voting"
+            + " again."
+        )
+
+        work += "\nP = "
+
+        votes_keys = [*votes.keys()]
+        work += (
+            str(votes[votes_keys[0]]) + "@[" + " > ".join(votes_keys[0]) + "]"
+        )
+        for i in range(1, len(votes_keys)):
+            work += (
+                " + "
+                + str(votes[votes_keys[i]])
+                + "@["
+                + " > ".join(votes_keys[i])
+                + "]"
+            )
+
+        for v in votes:
+            work += "\n\n" + str(votes[v]) + "@[" + " > ".join(v) + "]"
+            work += (
+                "\n"
+                + str(v[0])
+                + " = "
+                + str(count[v[0]])
+                + " + "
+                + str(votes[v])
+            )
+            count[v[0]] += votes[v]
+            work += " = " + str(count[v[0]])
+
+        work += "\n"
+        for c in runoff_winners:
+            work += "\n" + str(c) + " = " + str(count[c])
+
+        max_val = max(count.values())
+        winners = [key for key, val in count.items() if val == max_val]
+
+        for c in self.candidates:
+            print(c)
+            if c not in count.keys():
+                count[c] = "Eliminated"
+            print(count[c])
+
+        return count, winners, work
+
+    def veto(self) -> tuple:
+        """
+        calculates the winners, the count of how many points candidates got,
+        and the work needed to get those answers under veto voting
+        """
+        work = (
+            "\n\nVeto Voting: The lowest ranked candidate gets 0 points. "
             + "All other candidates get 1 point. "
         )
         work += "\nP = "
