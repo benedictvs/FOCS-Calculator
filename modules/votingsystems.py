@@ -327,14 +327,10 @@ class voting_systems_model(solver_model):
                 if candidate not in runoff_winners:
                     index = new_key.index(candidate)
                     new_key = new_key[:index] + new_key[index + 1:]
-            print(str(key), str(new_key))
             try:
                 votes[new_key] += val
             except KeyError:
                 votes[new_key] = val
-
-        print(str(self.votes))
-        print(str(votes))
 
         work += (
             "\nNow elminate all other candidates and do plurality voting"
@@ -377,10 +373,8 @@ class voting_systems_model(solver_model):
         winners = [key for key, val in count.items() if val == max_val]
 
         for c in self.candidates:
-            print(c)
             if c not in count.keys():
                 count[c] = "Eliminated"
-            print(count[c])
 
         return count, winners, work
 
