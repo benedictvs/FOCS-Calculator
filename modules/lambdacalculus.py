@@ -29,7 +29,7 @@ class lambda_calculus_solver(solver):
             """
             try:
                 val = self.convert_lambda(val)
-                parse_lambda_expr(val)
+                reduce_lambda_expr(val)
             except UnexpectedToken:
                 return False
             return True
@@ -51,7 +51,7 @@ class lambda_calculus_solver(solver):
 class lambda_calculus_model(solver_model):
     def solve(self) -> None:
         expr = self.inputs["expr"]
-        work = parse_lambda_expr(expr)
+        work = reduce_lambda_expr(expr)
         self.ans = str(work[-1])
         it = 1
         if len(work) == 1:
@@ -84,7 +84,7 @@ class lambda_calculus_model(solver_model):
 # This code reused from the reduce test case in the original pylambdac project
 
 
-def parse_lambda_expr(expr):
+def reduce_lambda_expr(expr):
     new = []
     state = parse.parse_expr(expr)
     while state is not None:
