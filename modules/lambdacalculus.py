@@ -34,7 +34,9 @@ class lambda_calculus_solver(solver):
             return True
 
         expr = self.prompt_string(
-            "Enter a valid lambda calculus expression > ", validate
+            "Enter a valid lambda calculus expression (use Lambda, lambda, or "
+            + "λ to represent λ) > ",
+            validate,
         )
         expr = self.convert_lambda(expr)
         self.inputs["expr"] = expr
@@ -77,6 +79,8 @@ class lambda_calculus_model(solver_model):
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# This code reused from the reduce test case in the original pylambdac project
 
 
 def parse_lambda_expr(expr):
