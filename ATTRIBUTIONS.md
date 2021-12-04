@@ -1,4 +1,4 @@
-pylambdac project code copyright 2018 Paul Crowley. The Lambda Calculus Interpreter for python can be found [here](https://github.com/ciphergoth/pylambdac). This code licensed via the Apache License 2.0. The pylambdac folder is used, and a code snippet from tests/test_reduce is included in the lambdacalculus module. The other files were not necessary for this project. No other modifications are made to the project. 
+pylambdac project code copyright 2018 Paul Crowley. The Lambda Calculus Interpreter for python can be found [here](https://github.com/ciphergoth/pylambdac). This code licensed via the Apache License 2.0. The pylambdac folder is used, and a code snippet from tests/test_reduce is included in the lambdacalculus module. The other files were not necessary for this project. No other modifications are made to the project. All files containing code from the pylambdac project are properly attributed. 
 
 The complete Apache License 2.0 text follows
 
