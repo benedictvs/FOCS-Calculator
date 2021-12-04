@@ -15,7 +15,9 @@ elements in a set of n elements.
 class binomial_coefficient_solver(solver):
     def prompt_inputs(self) -> None:
         n_arg = self.prompt_integer(
-            "Please enter the size of the set of elements (n) > ", 1
+            "Please enter the size of the set of elements (n) (1-1000) > ",
+            1,
+            1000,
         )
         k_arg = self.prompt_integer(
             "Please enter how many elements are chosen from that set (k) > ",
