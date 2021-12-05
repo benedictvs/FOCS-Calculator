@@ -45,7 +45,6 @@ class modular_arithmetic_model(solver_model):
 
         currentmod = 1
         for i in range(0, len(powlist)):
-            c = i + 1
             multmod = (currentmod ** 2) * (2 ** powlist[i])
             newmod = multmod % mod
             currentmod = newmod
