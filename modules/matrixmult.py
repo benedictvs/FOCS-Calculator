@@ -26,7 +26,7 @@ class matrix_multiplication_solver(solver):
         )
         sy1_arg = sx0_arg
 
-        mat0 = [[0] * sx0_arg for _ in range(sy0_arg)] 
+        mat0 = [[0] * sx0_arg for _ in range(sy0_arg)]
         mat1 = [[0] * sx1_arg for _ in range(sy1_arg)]
 
         for x in range(sx0_arg):
@@ -75,9 +75,13 @@ class matrix_multiplication_model(solver_model):
     def matrix_multiplicationwork(
         self, sx0: int, sy0: int, sx1: int, sy1: int, v: str, mat0=[], mat1=[]
     ) -> str:
-        v += "With matrices of size: {}".format(sx0) + ", {}".format(sy0);
-        v += " and size: {}".format(sx1) + ", {}".format(sy1) + "\n";
-        v += "our resulting matrix will be size: {}".format(sx1) + ", {}.".format(sy0) + "\n"
+        v += "With matrices of size: {}".format(sx0) + ", {}".format(sy0)
+        v += " and size: {}".format(sx1) + ", {}".format(sy1) + "\n"
+        v += (
+            "our resulting matrix will be size: {}".format(sx1)
+            + ", {}.".format(sy0)
+            + "\n"
+        )
         v += "Multiply {}".format(mat0) + "\n"
         v += "with {}.".format(mat1) + "\n"
         v += "We get the " + "answer: {}".format(np.matmul(mat0, mat1)) + "\n"
