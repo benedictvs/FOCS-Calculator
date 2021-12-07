@@ -1,4 +1,3 @@
-from lark.exceptions import UnexpectedToken
 from pylambdac import parse
 
 from abstractclasses import solver, solver_model
@@ -30,7 +29,7 @@ class lambda_calculus_solver(solver):
             try:
                 val = self.convert_lambda(val)
                 reduce_lambda_expr(val)
-            except UnexpectedToken:
+            except:
                 return False
             return True
 

@@ -99,7 +99,7 @@ class solver(ABC):
                 "type": "text",
                 "name": "integer",
                 "message": message_text,
-                "validate": lambda val: val.isdigit()
+                "validate": lambda val: val.isdigit() and val != ""
                 and (True if lower_bound is None else int(val) >= lower_bound)
                 and (True if upper_bound is None else int(val) <= upper_bound),
             },
@@ -129,7 +129,7 @@ class solver(ABC):
         return int(
             prompt(
                 questions,
-                validate=lambda val: val.isdigit()
+                validate=lambda val: val.isdigit() and val != ""
                 and (validate(val, args) if validate else True),
             )["integer"]
         )
@@ -164,7 +164,7 @@ class solver(ABC):
                 "type": "text",
                 "name": "float",
                 "message": message_text,
-                "validate": lambda val: self.is_float(val)
+                "validate": lambda val: self.is_float(val) and val != ""
                 and (
                     True if lower_bound is None else float(val) >= lower_bound
                 )
@@ -198,7 +198,7 @@ class solver(ABC):
         return float(
             prompt(
                 questions,
-                validate=lambda val: self.is_float(val)
+                validate=lambda val: self.is_float(val) and val != ""
                 and (validate(val, args) if validate else True),
             )["float"]
         )
@@ -226,8 +226,8 @@ class solver(ABC):
         return str(
             prompt(
                 questions,
-                validate=lambda val: (
-                    validate(val, args) if validate else True
+                validate=lambda val: val != "" and ((
+                    validate(val, args) if validate else True)
                 ),
             )["string"]
         )

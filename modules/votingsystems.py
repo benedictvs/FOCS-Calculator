@@ -42,12 +42,16 @@ class voting_systems_solver(solver):
         for i in range(len(str_vote_permutations)):
             str_vote_permutations[i] = " > ".join(str_vote_permutations[i])
 
+        def validate(val, *args):
+            return val != "Done"
+
         str_vote_permutations.insert(0, "Done")
-        permutation_index = str_vote_permutations.index(
-            self.prompt_choices(
+        index = ""
+        while index == "Done" or index == "":
+            index = self.prompt_choices(
                 "Which permutations have votes >", str_vote_permutations
             )
-        )
+        permutation_index = str_vote_permutations.index(index)
 
         votes = dict()
         while permutation_index != 0:

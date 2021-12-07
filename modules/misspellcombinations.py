@@ -15,7 +15,9 @@ class misspell_combinations_solver(solver):
             "How many ways can you misspell the word: (Enter word)"
         )
         k_arg = self.prompt_integer(
-            "Length of the word you want to misspell: ", lower_bound=1
+            "Length of the word you want to misspell: ",
+            lower_bound=1,
+            upper_bound=len(n_arg),
         )
 
         # Set inputs

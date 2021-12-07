@@ -163,17 +163,17 @@ modular_arithmetic = modular_arithmetic_solver(
 )
 
 _main = main(
-    voting,
     binomial_coefficient,
+    conditional_probability,
     euclidian_division,
-    vector_distance,
-    roman_numeral,
+    lambda_calculus,
+    logic_gate,
     matrix_multiplication,
     misspell_combinations,
-    nash_equillibrium,
-    conditional_probability,
-    logic_gate,
     modular_arithmetic,
-    lambda_calculus,
+    nash_equillibrium,
+    roman_numeral,
+    vector_distance,
+    voting,
 )
 _main()
