@@ -46,7 +46,7 @@ class lambda_calculus_solver(solver):
 
         expr = self.prompt_string(
             "Enter a valid lambda calculus expression (use Lambda, lambda, or "
-            + "\ to represent λ) > ",
+            + "\\ to represent λ) > ",
             validate,
         )
         expr = self.convert_lambda(expr)

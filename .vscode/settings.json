@@ -2,5 +2,4 @@
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.pylamaEnabled": false
 }
