@@ -148,8 +148,8 @@ matrix_multiplication = matrix_multiplication_solver(
 misspell_combinations = misspell_combinations_solver(
     name="Misspell Combinations", model=mispell_combinations_model
 )
-nash_equillibrium = nash_equillibrium_solver(
-    name="Nash Equilibrium", model=nash_equillibrium_model
+nash_equillibrium = nash_equilibrium_solver(
+    name="Nash Equilibrium", model=nash_equilibrium_model
 )
 conditional_probability = conditional_probability_solver(
     name="Conditional Probability", model=conditional_probability_model
