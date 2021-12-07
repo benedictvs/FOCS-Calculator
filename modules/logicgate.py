@@ -80,7 +80,6 @@ class logic_gate_model(solver_model):
             steps += "not {} = {}\n".format(a, self.logic(a, b, e))
             return steps
         if e == "or_gate":
-            print("HERE")
             steps = (
                 "Recall that the or gate returns TRUE if either a or b is"
                 + " TRUE:\n"
