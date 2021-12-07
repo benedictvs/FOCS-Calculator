@@ -26,9 +26,9 @@ from modules.misspellcombinations import (
     misspell_combinations_solver,
     mispell_combinations_model,
 )
-from modules.nashequillibrium import (
-    nash_equillibrium_solver,
-    nash_equillibrium_model,
+from modules.nashequilibrium import (
+    nash_equilibrium_solver,
+    nash_equilibrium_model,
 )
 from modules.conditionalprobability import (
     conditional_probability_solver,
@@ -149,7 +149,7 @@ misspell_combinations = misspell_combinations_solver(
     name="Misspell Combinations", model=mispell_combinations_model
 )
 nash_equillibrium = nash_equillibrium_solver(
-    name="Nash Equillibrium", model=nash_equillibrium_model
+    name="Nash Equilibrium", model=nash_equillibrium_model
 )
 conditional_probability = conditional_probability_solver(
     name="Conditional Probability", model=conditional_probability_model
@@ -159,7 +159,7 @@ lambda_calculus = lambda_calculus_solver(
     name="Lambda Calculus", model=lambda_calculus_model
 )
 modular_arithmetic = modular_arithmetic_solver(
-    name="Modular Artithmetic", model=modular_arithmetic_model
+    name="Modular Arithmetic", model=modular_arithmetic_model
 )
 
 _main = main(

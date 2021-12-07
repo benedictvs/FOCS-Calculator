@@ -1,17 +1,17 @@
 from abstractclasses import solver, solver_model
 
 """
-The Nash Equillibrium solver takes a payoff matrix from game theory,
-then it solves for a nash equillibrium, if one exists.
+The Nash equilibrium solver takes a payoff matrix from game theory,
+then it solves for a nash equilibrium, if one exists.
 """
 
 
 # ————————————————————————————————————————————————
-# NASH EQUILLIBRIUM SOLVER CLASS
+# NASH EQUILIBRIUM SOLVER CLASS
 # ————————————————————————————————————————————————
 
 
-class nash_equillibrium_solver(solver):
+class nash_equilibrium_solver(solver):
     def format_payoff_matrix(
         self,
         payoff_matrix: list,
@@ -159,11 +159,11 @@ class nash_equillibrium_solver(solver):
 
 
 # ————————————————————————————————————————————————
-# NASH EQUILLIBRIUM MODEL CLASS
+# NASH EQUILIBRIUM MODEL CLASS
 # ————————————————————————————————————————————————
 
 
-class nash_equillibrium_model(solver_model):
+class nash_equilibrium_model(solver_model):
     def __init__(self, **inputs) -> None:
         super().__init__(**inputs)
         self.format_payoff_matrix = self.inputs["format_payoff_matrix"]
@@ -185,7 +185,7 @@ class nash_equillibrium_model(solver_model):
     ) -> tuple:
         """
         Takes a payoff matrix from game theory and the available strategies for
-        both players. Solves for the Nash equillibrium
+        both players. Solves for the Nash equilibrium
         """
         work = ""
 
@@ -282,7 +282,7 @@ class nash_equillibrium_model(solver_model):
             len(player_1_strategies) == 1 and len(player_2_strategies) == 1
         ):
             ans = (
-                "There is no Nash Equillibrium, since at least one player has"
+                "There is no Nash equilibrium, since at least one player has"
                 + " multiple viable strategies.\n"
             )
             work += ans
@@ -291,7 +291,7 @@ class nash_equillibrium_model(solver_model):
             )
         else:
             ans = (
-                "This is the Nash Equillibrium of the entered payoff matrix,"
+                "This is the Nash equilibrium of the entered payoff matrix,"
                 + " calculated by eliminating dominanted strategies.\n"
             )
             ans += self.format_payoff_matrix(
