@@ -22,9 +22,9 @@ class lambda_calculus_solver(solver):
     def convert_lambda(self, expr) -> str:
         expr = str(expr)
         if "lambda" in expr:
-            expr = expr.replace("lambda", "λ")
+            expr = expr.replace("lambda", "\\")
         if "Lambda" in expr:
-            expr = expr.replace("Lambda", "λ")
+            expr = expr.replace("Lambda", "\\")
         return expr
 
     def prompt_inputs(self) -> None:
@@ -46,7 +46,7 @@ class lambda_calculus_solver(solver):
 
         expr = self.prompt_string(
             "Enter a valid lambda calculus expression (use Lambda, lambda, or "
-            + "λ to represent λ) > ",
+            + "\ to represent λ) > ",
             validate,
         )
         expr = self.convert_lambda(expr)
