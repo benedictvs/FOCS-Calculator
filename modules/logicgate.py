@@ -18,7 +18,7 @@ class logic_gate_solver(solver):
         b_arg = self.prompt_integer(
             "Please enter 0 or 1 for value of B > ", 0, 1
         )
-        choices = ["not_gate", "and_gate", "or_gates", "xor_gate"]
+        choices = ["not_gate", "and_gate", "or_gate", "xor_gate"]
         e_arg = self.prompt_choices(
             "Please specify not_gate, and_gate, or_gate, or xor_gate", choices
         )
@@ -80,6 +80,7 @@ class logic_gate_model(solver_model):
             steps += "not {} = {}\n".format(a, self.logic(a, b, e))
             return steps
         if e == "or_gate":
+            print("HERE")
             steps = (
                 "Recall that the or gate returns TRUE if either a or b is"
                 + " TRUE:\n"
